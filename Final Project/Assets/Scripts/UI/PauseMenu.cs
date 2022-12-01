@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    public Canvas canvas;
+    [SerializeField] private GameObject _pauseMenu;
     private void Awake()
     {
         GameManager.OnGameStatesChanged += OnPauseMenuActive;      
@@ -11,7 +11,7 @@ public class PauseMenu : MonoBehaviour
 
     private void OnPauseMenuActive(GameStates state)
     {
-        canvas.gameObject.SetActive(state == GameStates.Pause);
+        _pauseMenu.SetActive(state == GameStates.Pause);
     }
 
     void Update()
@@ -41,5 +41,6 @@ public class PauseMenu : MonoBehaviour
     public void QuitGame() 
     {
         Application.Quit();
+       
     }
 }

@@ -6,14 +6,14 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    public Canvas canvas;
+    [SerializeField] GameObject _mainMenu;
     private void Awake()
     {
         GameManager.OnGameStatesChanged += OnMainMenuActivate;
     }
     private void OnMainMenuActivate(GameStates state)
     {
-        canvas.gameObject.SetActive(state == GameStates.MainMenu);
+        _mainMenu.SetActive(state == GameStates.MainMenu);
     }
     public void StartGame()
     {

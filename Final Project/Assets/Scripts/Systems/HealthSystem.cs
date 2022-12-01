@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class HealthSystem
 {
@@ -30,8 +27,7 @@ public class HealthSystem
         OnDamaged?.Invoke();
         if (_health <= 0)
         {
-            Die();
-            
+            Die();            
         }
     }
     public void Die() 
@@ -48,4 +44,9 @@ public class HealthSystem
         OnHealthChanged?.Invoke();
         OnHealed?.Invoke();        
     }
+    public float GetHealthPercent()
+    {
+        return (float)_health / _maxHealth;
+    }
 }
+

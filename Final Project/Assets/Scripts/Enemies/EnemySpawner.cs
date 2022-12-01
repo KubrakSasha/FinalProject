@@ -18,18 +18,18 @@ public class EnemySpawner : MonoBehaviour
         enemies = new List<EnemyMain>(enemiesCount);
         for (int i = 0; i < enemiesCount; i++)
         {
-            var enemy = factory.GetNewInstance(playerPosition + (GetRandomSpawnPoint() * Random.Range(10f,200f)));
+            var enemy = factory.GetNewInstance(GetRandomSpawnPoint());
             enemies.Add(enemy);
         }
     }
-    public Vector2 GetSpawnPoint()
-    {
-        Vector2 spawnPoint = playerPosition*3 + Random.insideUnitCircle * radius;
-        return spawnPoint;
-    }
+    //public Vector2 GetSpawnPoint()
+    //{
+    //    Vector2 spawnPoint = playerPosition*3 + Random.insideUnitCircle * radius;
+    //    return spawnPoint;
+    //}
     private Vector2 GetRandomSpawnPoint() 
     {
-        return new Vector2(Random.Range(-1f,1f), Random.Range(-1f,1f)).normalized;
+        return new Vector2(Random.Range(-1f,1f), Random.Range(-1f,1f)).normalized * Random.Range(30f, 200f) + playerPosition;
     }
 
 }

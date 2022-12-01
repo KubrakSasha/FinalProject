@@ -8,6 +8,8 @@ public class PlayerMovementHandler : MonoBehaviour{
     public float speedMovement = 150;
     float angle;
     Camera cam;
+
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
