@@ -6,45 +6,48 @@ using UnityEngine.UIElements;
 
 public class EnemyMain : MonoBehaviour
 {
+
     public static event Action OnEnemyDied;
 
-    [SerializeField] Transform player;
-    [SerializeField] float movementSpeed = 3;
-    public HealthSystem healthSystem;
+    public GameObject DeathPrefab;
+    protected Transform _player;
+    [SerializeField] protected float _movementSpeed = 3;
+    public HealthSystem _healthSystem;
     int maxHealth = 100;
-    int damage = 10;
-    //LevelSystem lsplayer;
-
+    [SerializeField] protected int _damage;
+    public bool IsExplosive;
 
     void Start()
     {
-        healthSystem = new HealthSystem(maxHealth);
-        player = FindObjectOfType<PlayerMain>().transform;
-        healthSystem.OnDead += HealthSystem_OnDead;
-        //lsplayer = player.GetComponent<PlayerMain>().levelSystem;
-        
+        _player = PlayerMain.Instance.GetComponent<Transform>();
+
+        _healthSystem = new HealthSystem(maxHealth);        
+        _healthSystem.OnDead += HealthSystem_OnDead;
+
     }
-    void Update()
+    protected void Update()
     {
         FollowForPlayer();
     }
 
     private void HealthSystem_OnDead()
     {
+        GetComponent<LootBag>().InstantiateLoot(transform.position);
+        Instantiate(DeathPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
         OnEnemyDied?.Invoke();
-        healthSystem.OnDead -= HealthSystem_OnDead;
-    }   
-    void FollowForPlayer() 
+        _healthSystem.OnDead -= HealthSystem_OnDead;
+    }
+    void FollowForPlayer()
     {
-        transform.position = Vector2.MoveTowards(transform.position, player.position, movementSpeed * Time.deltaTime);
-        Vector2 directionToPlayer = (player.position - transform.position).normalized;
+        transform.position = Vector2.MoveTowards(transform.position, _player.position, _movementSpeed * Time.deltaTime);
+        Vector2 directionToPlayer = (_player.position - transform.position).normalized;
         float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle);
-        
+
     }
-    public int GetDamage() 
+    public int GetDamage()
     {
-        return damage;
-    } 
+        return _damage;
+    }
 }

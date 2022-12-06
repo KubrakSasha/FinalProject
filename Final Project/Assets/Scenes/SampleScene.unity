@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 112192123}
   - component: {fileID: 112192122}
   m_Layer: 0
-  m_Name: EnemyFactory
+  m_Name: MovingEnemyFactory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -153,7 +153,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 8771112500634526490, guid: ebc74902eb9d2284abc99673635fcc4f, type: 3}
-  spawnPoint: {x: 0, y: 0}
 --- !u!4 &112192123
 Transform:
   m_ObjectHideFlags: 0
@@ -767,7 +766,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1406,6 +1405,8 @@ Transform:
   - {fileID: 112192123}
   - {fileID: 1990651535}
   - {fileID: 1607726249}
+  - {fileID: 1315955574}
+  - {fileID: 1361224479}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1627,6 +1628,51 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1315955573
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1315955574}
+  - component: {fileID: 1315955575}
+  m_Layer: 0
+  m_Name: ShootingEnemyFactory (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1315955574
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1315955573}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 987498080}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1315955575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1315955573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42f865baf8a93fc459d5c0ffade6d2f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 3287225873251180358, guid: 35b75d811d75f444eb2e1593638cfee0, type: 3}
 --- !u!1 &1343523208
 GameObject:
   m_ObjectHideFlags: 0
@@ -1705,6 +1751,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1343523208}
   m_CullTransparentMesh: 1
+--- !u!1 &1361224478
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1361224479}
+  - component: {fileID: 1361224480}
+  m_Layer: 0
+  m_Name: ExplosionEnemyFactory (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1361224479
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361224478}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 987498080}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1361224480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361224478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbbe014fbb46ab345b9d0c720eef0b78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 7902005287497224522, guid: f890cc4bdb55ec74a9a2033ebdb2f2fb, type: 3}
 --- !u!1 &1471026029
 GameObject:
   m_ObjectHideFlags: 0
@@ -2196,8 +2287,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootPoint: {fileID: 632879284}
   bulletPrefab: {fileID: 4162253048748551865, guid: 4072a0b035c0b684cbe1f1646be4fbfa, type: 3}
+  muzlePrefab: {fileID: 2509240434871919484, guid: 821dc978f82dfef4f8dc96d9fc95bc24, type: 3}
   shotForce: 100
   timeBetweenShoot: 0.1
+  _reloadtime: 2
+  _maxAmmo: 30
 --- !u!58 &1571209926
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2228,6 +2322,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 239517245}
   expirienceBar: {fileID: 1806784799}
+  ExplosionPrefab: {fileID: 725748389856807714, guid: 4bda94453d2ca7444a0fff05b2d425f5, type: 3}
 --- !u!1 &1603665914
 GameObject:
   m_ObjectHideFlags: 0
@@ -2373,6 +2468,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1607726249}
   - component: {fileID: 1607726250}
+  - component: {fileID: 1607726251}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2407,7 +2503,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfd148fc7291ec949b9f6668acdadcc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CameraShake: {fileID: 0}
   _gamePanel: {fileID: 1625155555}
+--- !u!114 &1607726251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1607726248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b328bd4660dc7942964a07b6b169318, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1614349115
 GameObject:
   m_ObjectHideFlags: 0
@@ -3340,7 +3449,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1990651535}
-  - component: {fileID: 1990651536}
+  - component: {fileID: 1990651537}
   m_Layer: 0
   m_Name: EnemySpawner
   m_TagString: Untagged
@@ -3363,7 +3472,7 @@ Transform:
   m_Father: {fileID: 987498080}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1990651536
+--- !u!114 &1990651537
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3372,11 +3481,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 1990651534}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 520eb5f02d2a8ed40b7978321766d04f, type: 3}
+  m_Script: {fileID: 11500000, guid: 54669064fc10e4f4d92bd07c21942319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  factory: {fileID: 112192122}
-  radius: 20
+  _factories: []
+  factory1: {fileID: 112192122}
+  factory2: {fileID: 1315955575}
+  factory3: {fileID: 1361224480}
+  _waves:
+  - Name: 0
+    Count: 20
+    Rate: 1
+  - Name: 1
+    Count: 10
+    Rate: 2
+  - Name: 2
+    Count: 20
+    Rate: 1
+  _timeBetweenWaves: 10
 --- !u!1 &2000659015
 GameObject:
   m_ObjectHideFlags: 0
