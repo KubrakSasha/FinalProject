@@ -5,7 +5,7 @@ using UnityEngine;
 public class GenericFactory<T> : MonoBehaviour where T : MonoBehaviour
 {
     [SerializeField] T prefab;
-    [SerializeField] Vector2 spawnPoint;
+    //[SerializeField] Vector2 spawnPoint;
     
    public T GetNewInstance(Vector2 spawnPoint)
     {

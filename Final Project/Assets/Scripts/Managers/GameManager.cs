@@ -11,11 +11,16 @@ public enum GameStates
 }
 public class GameManager : Singleton<GameManager>
 {
+    public CameraShake CameraShake;
     public static Action<GameStates> OnGameStatesChanged;
     public static bool IsGamePaused = false;
     private GameStates _gameStates;
     [SerializeField] private GameObject _gamePanel;// придумать куда деть
-     
+    private void Awake()
+    {
+        CameraShake = GetComponent<CameraShake>();
+
+    }
     private void Start()
     {
         UpdateGameStates(GameStates.MainMenu);
