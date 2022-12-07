@@ -3,8 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 public enum GameStates
-{
-    MainMenu,
+{    
     InGame,
     Dead,
     Pause
@@ -44,10 +43,7 @@ public class GameManager : Singleton<GameManager>
     {
         _gameStates = state;
         switch (state)
-        {
-            case GameStates.MainMenu:
-                ChangeTimeScaleToZero();
-                break;
+        {           
             case GameStates.InGame:
                 SetActiveGamePanel();   
                 break;

@@ -1,16 +1,15 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class LootBag : MonoBehaviour
 {
-    [SerializeField] private List <Loot> loots = new List<Loot>();
+    [SerializeField] private List <Loot> _loots = new List<Loot>();
 
     Loot GetDroppedItem() 
     {
         int randomNumber = Random.Range(1, 101);
         List<Loot> possibleItems = new List<Loot>();
-        foreach (Loot item in loots) 
+        foreach (Loot item in _loots) 
         {
             if (randomNumber <= item.DropChance)
             {

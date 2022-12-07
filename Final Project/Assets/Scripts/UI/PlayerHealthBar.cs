@@ -1,25 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerHealthBar : MonoBehaviour
 {
-    [SerializeField] Transform bar;
-    HealthSystem healthSystem;
+    [SerializeField] private Transform _bar;
+    private HealthSystem _healthSystem;
 
-
-    private void Start()
-    {
-       
-    }
     public void Setup(HealthSystem healthSystem) 
     {
-        this.healthSystem = healthSystem;
+        this._healthSystem = healthSystem;
         healthSystem.OnHealthChanged += HealthSystem_OnHealthChanged;
     }
 
     private void HealthSystem_OnHealthChanged()
     {
-        bar.localScale = new Vector2(healthSystem.GetHealthPercent(), 1);
+        _bar.localScale = new Vector2(_healthSystem.GetHealthPercent(), 1);
     }
 }

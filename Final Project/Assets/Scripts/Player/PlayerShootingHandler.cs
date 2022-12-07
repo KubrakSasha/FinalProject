@@ -1,22 +1,19 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerShootingHandler : MonoBehaviour
 {
-    [SerializeField] Transform shootPoint;
-    [SerializeField] GameObject bulletPrefab;
-    [SerializeField] GameObject muzlePrefab;
-    [SerializeField] float shotForce;
-    [SerializeField] float timeBetweenShoot = 3f;
-    [SerializeField] private float _reloadtime = 2.0f;
-    [SerializeField] private int _maxAmmo = 30;
+    [SerializeField] private Transform _shootPoint;
+    [SerializeField] private GameObject _bulletPrefab;
+    [SerializeField] private GameObject _muzlePrefab;
+     private float _shotForce = 50;
+     private float _timeBetweenShoot = 0.2f;
+     private float _reloadtime = 2.0f;
+     private int _maxAmmo = 30;
     private int _currentAmmo;
     private bool _isReloading = false;
 
-
-    float timer;
+    private float _timer;
 
     private void Start()
     {
@@ -43,16 +40,16 @@ public class PlayerShootingHandler : MonoBehaviour
                 StartCoroutine(Reload());
                 return;
             }
-            timer += Time.fixedDeltaTime;
-            if (timer > timeBetweenShoot && _isReloading == false)
+            _timer += Time.fixedDeltaTime;
+            if (_timer > _timeBetweenShoot && _isReloading == false)
             {
-                GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);//◊≈√Œ ¡Œ ŒÃ
-                GameObject muzle = Instantiate(muzlePrefab, shootPoint.position, shootPoint.rotation);
+                GameObject bullet = Instantiate(_bulletPrefab, _shootPoint.position, _shootPoint.rotation);//◊≈√Œ ¡Œ ŒÃ
+                GameObject muzle = Instantiate(_muzlePrefab, _shootPoint.position, _shootPoint.rotation);
                 Destroy(muzle, 0.1f);
                 Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-                rb.AddForce(shootPoint.up * shotForce, ForceMode2D.Impulse);
+                rb.AddForce(_shootPoint.up * _shotForce, ForceMode2D.Impulse);
                 GameManager.Instance.CameraShake.Shake(0.1f, 0.1f);
-                timer = 0;
+                _timer = 0;
                 _currentAmmo--;
             }         
             

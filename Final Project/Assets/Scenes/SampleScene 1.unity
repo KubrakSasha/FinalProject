@@ -507,7 +507,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4d8b987c84d74d48b9f396613fabaa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bar: {fileID: 635678954}
+  _bar: {fileID: 635678954}
 --- !u!1 &402814243
 GameObject:
   m_ObjectHideFlags: 0
@@ -2158,11 +2158,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1571209924}
   - component: {fileID: 1571209923}
-  - component: {fileID: 1571209922}
   - component: {fileID: 1571209921}
-  - component: {fileID: 1571209925}
   - component: {fileID: 1571209926}
+  - component: {fileID: 1571209922}
+  - component: {fileID: 1571209925}
   - component: {fileID: 1571209928}
+  - component: {fileID: 1571209929}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2284,13 +2285,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8312c90026462c4fbf4d14f28ec8da5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootPoint: {fileID: 632879284}
-  bulletPrefab: {fileID: 4162253048748551865, guid: 4072a0b035c0b684cbe1f1646be4fbfa, type: 3}
-  muzlePrefab: {fileID: 2509240434871919484, guid: 821dc978f82dfef4f8dc96d9fc95bc24, type: 3}
-  shotForce: 100
-  timeBetweenShoot: 0.1
-  _reloadtime: 2
-  _maxAmmo: 30
+  _shootPoint: {fileID: 632879284}
+  _bulletPrefab: {fileID: 4162253048748551865, guid: 4072a0b035c0b684cbe1f1646be4fbfa, type: 3}
+  _muzlePrefab: {fileID: 2509240434871919484, guid: 821dc978f82dfef4f8dc96d9fc95bc24, type: 3}
 --- !u!58 &1571209926
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2317,6 +2314,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6232c6d6d8362c24786853bc6f7d2082, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1571209929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571209920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27193b56c7a8dba4e99dacef5325166b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 239517245}

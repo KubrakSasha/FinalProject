@@ -11,19 +11,23 @@ public class EnemyMain : MonoBehaviour
 
     public GameObject DeathPrefab;
     protected Transform _player;
-    [SerializeField] protected float _movementSpeed = 3;
+
     public HealthSystem _healthSystem;
-    int maxHealth = 100;
+    [SerializeField] protected int _maxHealth = 100;
+    [SerializeField] protected float _movementSpeed = 3;
     [SerializeField] protected int _damage;
+    public int Damage => _damage;
     public bool IsExplosive;
 
-    void Start()
+    private void Awake()
     {
         _player = PlayerMain.Instance.GetComponent<Transform>();
 
-        _healthSystem = new HealthSystem(maxHealth);        
+    }
+    void Start()
+    {
+        _healthSystem = new HealthSystem(_maxHealth);        
         _healthSystem.OnDead += HealthSystem_OnDead;
-
     }
     protected void Update()
     {
@@ -44,10 +48,5 @@ public class EnemyMain : MonoBehaviour
         Vector2 directionToPlayer = (_player.position - transform.position).normalized;
         float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle);
-
-    }
-    public int GetDamage()
-    {
-        return _damage;
-    }
+    }    
 }

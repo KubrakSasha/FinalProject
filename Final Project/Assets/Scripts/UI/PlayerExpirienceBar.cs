@@ -17,15 +17,15 @@ public class PlayerExpirienceBar : MonoBehaviour
         _levelSystem = levelSystem;
         levelSystem.OnExpirienceChanged += LevelSystem_OnExpirienceChanged;
         levelSystem.OnLevelChanged += LevelSystem_OnLevelChanged;
-        SetLevelNumber(_levelSystem.GetLevel());
+        SetLevelNumber(_levelSystem.Level);
     }
     private void SetLevelNumber(int levelNumber)
     {
-        _levelNumber.text = "Level" + (_levelSystem.GetLevel() + 1);
+        _levelNumber.text = "Level" + (_levelSystem.Level + 1);
     }
     private void LevelSystem_OnLevelChanged()
     {
-        SetLevelNumber(_levelSystem.GetLevel());
+        SetLevelNumber(_levelSystem.Level);
     }
 
     private void LevelSystem_OnExpirienceChanged()
