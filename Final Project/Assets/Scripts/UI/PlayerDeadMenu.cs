@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerDeadMenu : MonoBehaviour
 {
@@ -16,9 +17,10 @@ public class PlayerDeadMenu : MonoBehaviour
         _playerDeadMenu.SetActive(state == GameStates.Dead);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Reset()
     {
-        
+        SceneManager.LoadScene(0);
     }
+
+
 }

@@ -27,9 +27,10 @@ public class BattleSystem : MonoBehaviour
     }
     private WaveState _waveState = WaveState.Idle;
     
-    //[SerializeField] private MovingEnemyFactory _factory;
-    [SerializeField] private List <GenericFactory<EnemyMain>> _factories;
-    //[SerializeField] private GenericFactory<MovingEnemy> _enemyFactory;
+    ////[SerializeField] private MovingEnemyFactory _factory;
+    //[SerializeField] private List <GenericFactory<EnemyMain>> _factories;
+    ////[SerializeField] private GenericFactory<MovingEnemy> _enemyFactory;
+    [SerializeField] private List <EnemyMain> _enemyMainPrefabs;
 
     [SerializeField] private MovingEnemyFactory factory1;
     [SerializeField] private ShootingEnemyFactory factory2;
@@ -44,7 +45,7 @@ public class BattleSystem : MonoBehaviour
 
     private void Awake()
     {
-        _factories = new List<GenericFactory<EnemyMain>>();
+        //_factories = new List<GenericFactory<EnemyMain>>();
         //_factories.Add(factory1);
 
 
@@ -101,7 +102,7 @@ public class BattleSystem : MonoBehaviour
         _waveState = WaveState.Spawning;
         for (int i = 0; i < wave.Count; i++)
         {
-            EnemyMain enemy = factory2.GetNewInstance(GetRandomSpawnPoint());// Random factory??
+            EnemyMain enemy = GetNewInstance(GetRandomSpawnPoint());// Random factory??
             _standEnemies.Add(enemy);
             yield return new WaitForSeconds(1 / wave.Rate);
         }
@@ -118,8 +119,16 @@ public class BattleSystem : MonoBehaviour
     {
         return new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized * Random.Range(10f, 20f) + PlayerMain.Instance.GetComponent<Transform>().position;
     }
-    private GenericFactory<EnemyMain> GenerGetRandomTypeOfEnemy() 
+    //private GenericFactory<EnemyMain> GenerGetRandomTypeOfEnemy() 
+    //{
+    //    return _factories[Random.Range(0, _factories.Count)];
+    //}
+    private EnemyMain GetRandomTypeOfEnemy()
     {
-        return _factories[Random.Range(0, _factories.Count)];
+        return _enemyMainPrefabs[Random.Range(0, _enemyMainPrefabs.Count)];
+    }
+    public EnemyMain GetNewInstance(Vector2 spawnPoint)
+    {
+        return Instantiate(GetRandomTypeOfEnemy(), spawnPoint, Quaternion.identity);
     }
 }

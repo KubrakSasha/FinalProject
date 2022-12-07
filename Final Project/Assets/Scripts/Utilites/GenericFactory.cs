@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public interface IFactoryed { }
 public class GenericFactory<T> : MonoBehaviour where T : MonoBehaviour
 {
     [SerializeField] T prefab;

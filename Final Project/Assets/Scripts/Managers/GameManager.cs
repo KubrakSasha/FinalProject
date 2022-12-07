@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public enum GameStates 
+public enum GameStates
 {
     MainMenu,
     InGame,
@@ -23,7 +23,22 @@ public class GameManager : Singleton<GameManager>
     }
     private void Start()
     {
-        UpdateGameStates(GameStates.MainMenu);
+        UpdateGameStates(GameStates.InGame);
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Z))
+        {
+            if (IsGamePaused)
+            {
+                ResumeGame();
+
+            }
+            else
+            {
+                PauseGame();
+            }
+        }
     }
     public void UpdateGameStates(GameStates state)
     {
@@ -38,6 +53,7 @@ public class GameManager : Singleton<GameManager>
                 break;
             case GameStates.Dead:
                 ChangeTimeScaleToZero();
+                SetEnableGamingPanel();
                 break;
             case GameStates.Pause:
                 break;
@@ -52,6 +68,10 @@ public class GameManager : Singleton<GameManager>
     {
         _gamePanel.SetActive(true);
     }
+    public void SetEnableGamingPanel() 
+    {
+        _gamePanel.SetActive(false);
+    }
 
     public void ChangeTimeScaleToZero() 
     {
@@ -62,14 +82,14 @@ public class GameManager : Singleton<GameManager>
         Time.timeScale = 0.0f;        
         IsGamePaused = true;
         _gamePanel?.SetActive(false);
-        GameManager.Instance.UpdateGameStates(GameStates.Pause);
+        UpdateGameStates(GameStates.Pause);
     }
     public void ResumeGame() 
     {
         Time.timeScale = 1.0f;
         IsGamePaused = false;
 
-        GameManager.Instance.UpdateGameStates(GameStates.InGame);
+        UpdateGameStates(GameStates.InGame);
     }
 
 

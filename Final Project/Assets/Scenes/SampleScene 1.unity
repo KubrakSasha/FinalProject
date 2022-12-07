@@ -435,7 +435,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b946150d2af4ce49b9515be78a5335e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pauseMenu: {fileID: 1708643585}
 --- !u!114 &229046263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1494,10 +1493,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 229046264}
+        m_TargetAssemblyTypeName: PlayerDeadMenu, Assembly-CSharp
+        m_MethodName: Reset
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3484,7 +3483,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54669064fc10e4f4d92bd07c21942319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _factories: []
+  _enemyMainPrefabs:
+  - {fileID: -8466197585279011828, guid: ebc74902eb9d2284abc99673635fcc4f, type: 3}
+  - {fileID: 7902005287497224522, guid: f890cc4bdb55ec74a9a2033ebdb2f2fb, type: 3}
+  - {fileID: 3287225873251180358, guid: 35b75d811d75f444eb2e1593638cfee0, type: 3}
   factory1: {fileID: 112192122}
   factory2: {fileID: 1315955575}
   factory3: {fileID: 1361224480}

@@ -43,6 +43,8 @@ public class PlayerMain : Singleton<PlayerMain>
             healthSystem.ApplyDamgage(enemy.GetDamage());
             if (enemy.IsExplosive)
             {
+                GameObject explosion1 = Instantiate(ExplosionPrefab, enemy.transform.position, Quaternion.identity) as GameObject;
+                GameManager.Instance.CameraShake.Shake(0.5f, 0.5f);
                 Destroy(enemy.gameObject);
             }
         }
@@ -67,7 +69,7 @@ public class PlayerMain : Singleton<PlayerMain>
         collision.TryGetComponent<Explosion>(out Explosion explosion);
         if (explosion != null)
         {
-            Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, 5);
+            Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, 15);
             foreach (Collider2D enemy in enemies) 
             {
                 enemy.TryGetComponent<EnemyMain>(out EnemyMain enem);
