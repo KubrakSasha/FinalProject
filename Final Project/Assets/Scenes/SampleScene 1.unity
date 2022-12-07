@@ -3487,9 +3487,6 @@ MonoBehaviour:
   - {fileID: -8466197585279011828, guid: ebc74902eb9d2284abc99673635fcc4f, type: 3}
   - {fileID: 7902005287497224522, guid: f890cc4bdb55ec74a9a2033ebdb2f2fb, type: 3}
   - {fileID: 3287225873251180358, guid: 35b75d811d75f444eb2e1593638cfee0, type: 3}
-  factory1: {fileID: 112192122}
-  factory2: {fileID: 1315955575}
-  factory3: {fileID: 1361224480}
   _waves:
   - Name: 0
     Count: 20
@@ -3501,6 +3498,8 @@ MonoBehaviour:
     Count: 20
     Rate: 1
   _timeBetweenWaves: 10
+  _enemiesInWave: 5
+  WavesSpawn: 5
 --- !u!1 &2000659015
 GameObject:
   m_ObjectHideFlags: 0
