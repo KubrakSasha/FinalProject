@@ -40,7 +40,7 @@ public class BattleSystem : MonoBehaviour
     //[SerializeField] private ExplosionEnemyFactory factory3;
     [SerializeField] private List<EnemyMain> _enemyMainPrefabs;
     private List<Wave> _wavesList;
-    [SerializeField] private Wave[] _waves;
+    //[SerializeField] private Wave[] _waves;
     [SerializeField] private float _timeBetweenWaves;
 
     private float _waveCountdown;

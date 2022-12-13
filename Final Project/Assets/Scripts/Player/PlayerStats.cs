@@ -24,11 +24,14 @@ public class PlayerStats : MonoBehaviour
     }
     private void EnemyMain_OnEnemyDied()
     {
-        levelSystem.AddExpirience(3);        
+        EnemyMain.OnEnemyDied -= EnemyMain_OnEnemyDied;
+        levelSystem.AddExpirience(3);
+        
     }
 
     private void HealthSystem_OnDead()
     {
+        healthSystem.OnDead -= HealthSystem_OnDead;
         GameManager.Instance.UpdateGameStates(GameStates.Dead);
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -40,6 +43,7 @@ public class PlayerStats : MonoBehaviour
             if (enemy.IsExplosive)
             {
                 GameObject explosion1 = Instantiate(ExplosionPrefab, enemy.transform.position, Quaternion.identity) as GameObject;
+                SoundManager.Instance.PlaySound(SoundManager.Sound.Explosion);
                 GameManager.Instance.CameraShake.Shake(0.5f, 0.5f);
                 Destroy(enemy.gameObject);
             }
@@ -75,6 +79,7 @@ public class PlayerStats : MonoBehaviour
                 }
             }
             GameManager.Instance.CameraShake.Shake(0.5f, 0.5f);
+            SoundManager.Instance.PlaySound(SoundManager.Sound.Explosion);
             Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
             Destroy(collision.gameObject);
         }

@@ -12,6 +12,8 @@ public class Bullet : MonoBehaviour
         if (enemy != null)
         {
             enemy._healthSystem.ApplyDamgage(PlayerMain.Instance.Stats.Damage);
+            SoundManager.Instance.PlaySound(SoundManager.Sound.EnemyHit);
+
             Destroy(gameObject);
         }
         

@@ -3,16 +3,20 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    //[SerializeField] private GameObject _pauseMenu;
-    //private void Awake()
-    //{
-    //    GameManager.OnGameStatesChanged += OnPauseMenuActive;      
-    //}
+    [SerializeField] private GameObject _pauseMenu;
+    private void Awake()
+    {
+        GameManager.OnGameStatesChanged += OnPauseMenuActive;
+    }
 
-    //private void OnPauseMenuActive(GameStates state)
-    //{
-    //    _pauseMenu.SetActive(state == GameStates.Pause);
-    //}
+    private void OnPauseMenuActive(GameStates state)
+    {
+        _pauseMenu.SetActive(state == GameStates.Pause);
+    }
+    private void OnDestroy()
+    {
+        GameManager.OnGameStatesChanged -= OnPauseMenuActive;
+    }
 
     //void Update()
     //{
@@ -29,18 +33,18 @@ public class PauseMenu : MonoBehaviour
     //        }
     //    }
     //}
-    //public void ResumeGame() 
-    //{
-    //    GameManager.Instance.ResumeGame();
-    //}
-    //public void RestartGame() 
-    //{
-    //    SceneManager.LoadScene(0);
-    //    GameManager.Instance.UpdateGameStates(GameStates.MainMenu);
-    //}
-    //public void QuitGame() 
-    //{
-    //    Application.Quit();
-       
-    //}
+    public void ResumeGame()
+    {
+        GameManager.Instance.ResumeGame();
+    }
+    public void RestartGame()
+    {
+        //GameManager.OnGameStatesChanged -= OnPauseMenuActive;
+        GameManager.Instance.RestartGame();
+    }
+    public void QuitGame()
+    {
+        Application.Quit();
+
+    }
 }

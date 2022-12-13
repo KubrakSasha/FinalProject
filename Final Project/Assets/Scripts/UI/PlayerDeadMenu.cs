@@ -8,14 +8,19 @@ public class PlayerDeadMenu : MonoBehaviour
     {
         GameManager.OnGameStatesChanged += OnPlayerDeadMenuActivate;
     }
-    public void Reset()
+    public void Restart()
     {
-        GameManager.OnGameStatesChanged -= OnPlayerDeadMenuActivate;
-        SceneManager.LoadScene(0);
+        //GameManager.OnGameStatesChanged -= OnPlayerDeadMenuActivate;
+        GameManager.Instance.RestartGame();
+        
     }
     private void OnPlayerDeadMenuActivate(GameStates state)
     {
         _playerDeadMenu.SetActive(state == GameStates.Dead);
+    }
+    private void OnDestroy()
+    {
+        GameManager.OnGameStatesChanged -= OnPlayerDeadMenuActivate;
     }
 
 }

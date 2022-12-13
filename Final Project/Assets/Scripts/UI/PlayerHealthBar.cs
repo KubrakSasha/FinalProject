@@ -8,11 +8,15 @@ public class PlayerHealthBar : MonoBehaviour
     public void Setup(HealthSystem healthSystem) 
     {
         this._healthSystem = healthSystem;
-        healthSystem.OnHealthChanged += HealthSystem_OnHealthChanged;
+        _healthSystem.OnHealthChanged += HealthSystem_OnHealthChanged;
     }
 
     private void HealthSystem_OnHealthChanged()
     {
         _bar.localScale = new Vector2(_healthSystem.GetHealthPercent(), 1);
+    }
+    private void OnDestroy()
+    {
+        _healthSystem.OnHealthChanged -= HealthSystem_OnHealthChanged;
     }
 }

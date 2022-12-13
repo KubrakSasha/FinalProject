@@ -15,8 +15,8 @@ public class PlayerExpirienceBar : MonoBehaviour
     public void Setup (LevelSystem levelSystem)
     {        
         _levelSystem = levelSystem;
-        levelSystem.OnExpirienceChanged += LevelSystem_OnExpirienceChanged;
-        levelSystem.OnLevelChanged += LevelSystem_OnLevelChanged;
+        _levelSystem.OnExpirienceChanged += LevelSystem_OnExpirienceChanged;
+        _levelSystem.OnLevelChanged += LevelSystem_OnLevelChanged;
         SetLevelNumber(_levelSystem.Level);
     }
     private void SetLevelNumber(int levelNumber)
@@ -30,6 +30,13 @@ public class PlayerExpirienceBar : MonoBehaviour
 
     private void LevelSystem_OnExpirienceChanged()
     {
+
         _bar.localScale = new Vector2(_levelSystem.GetExpiriencePercent(), 1.0f);
     }
+    private void OnDestroy()
+    {
+        _levelSystem.OnExpirienceChanged -= LevelSystem_OnExpirienceChanged;
+        _levelSystem.OnLevelChanged -= LevelSystem_OnLevelChanged;
+    }
+
 }

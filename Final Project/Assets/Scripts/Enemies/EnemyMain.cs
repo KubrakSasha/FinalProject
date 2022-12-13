@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 
 public class EnemyMain : MonoBehaviour
 {
+    AudioSource _audioSource;
 
     public static event Action OnEnemyDied;
 
@@ -26,6 +27,7 @@ public class EnemyMain : MonoBehaviour
     }
     void Start()
     {
+        _audioSource = GetComponent<AudioSource>();        
         _healthSystem = new HealthSystem(_maxHealth);        
         _healthSystem.OnDead += HealthSystem_OnDead;
     }
@@ -41,6 +43,7 @@ public class EnemyMain : MonoBehaviour
         Destroy(gameObject);
         OnEnemyDied?.Invoke();
         _healthSystem.OnDead -= HealthSystem_OnDead;
+        //SoundManager.Instance.PlaySound(SoundManager.Sound.EnemyHit);
     }
     void FollowForPlayer()
     {
