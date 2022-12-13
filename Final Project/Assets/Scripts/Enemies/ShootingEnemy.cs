@@ -12,7 +12,7 @@ public class ShootingEnemy : EnemyMain
 
     [SerializeField] protected float reloadTime = 2.0f;    
     protected float reloadTimer;
-
+    
     private void Update() 
     {
         base.Update();

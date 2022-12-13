@@ -9,6 +9,9 @@ public class LevelSystem
     private int _expirience;
     private int _expirienceToNextLevel;
 
+    public int Level => _level;
+    public int Expirience => _expirience;
+
     public LevelSystem()
     {
         _level = 0;
@@ -26,18 +29,9 @@ public class LevelSystem
             OnLevelChanged?.Invoke();
             _expirience -= _expirienceToNextLevel;
         }
-    }
-    public int GetLevel() 
-    {
-        return _level;
-    }
-    public int GetExpirience()
-    {
-        return _expirience;
-    }
+    }    
     public float GetExpiriencePercent()
     {
         return (float)_expirience / _expirienceToNextLevel;
     }
-
 }

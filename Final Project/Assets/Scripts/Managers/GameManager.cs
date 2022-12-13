@@ -1,10 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-public enum GameStates 
-{
-    MainMenu,
+using UnityEngine.SceneManagement;
+
+public enum GameStates
+{    
     InGame,
     Dead,
     Pause
@@ -14,6 +16,7 @@ public class GameManager : Singleton<GameManager>
     public CameraShake CameraShake;
     public static Action<GameStates> OnGameStatesChanged;
     public static bool IsGamePaused = false;
+    public static bool IsDead = false;
     private GameStates _gameStates;
     [SerializeField] private GameObject _gamePanel;// придумать куда деть
     private void Awake()
@@ -23,21 +26,41 @@ public class GameManager : Singleton<GameManager>
     }
     private void Start()
     {
-        UpdateGameStates(GameStates.MainMenu);
+        UpdateGameStates(GameStates.InGame);
+    }
+    private void Update()
+    {
+        if (IsDead == false)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Z))
+            {
+                if (IsGamePaused)
+                {
+                    ResumeGame();
+
+                }
+                else
+                {
+                    PauseGame();
+                }
+            }
+        }
+
     }
     public void UpdateGameStates(GameStates state)
     {
         _gameStates = state;
         switch (state)
         {
-            case GameStates.MainMenu:
-                ChangeTimeScaleToZero();
-                break;
             case GameStates.InGame:
-                SetActiveGamePanel();   
+                IsDead = false;
+                SetActiveGamePanel();
+                ChangeTimeScaleToOne();
                 break;
             case GameStates.Dead:
+                IsDead = true;
                 ChangeTimeScaleToZero();
+                SetEnableGamingPanel();
                 break;
             case GameStates.Pause:
                 break;
@@ -52,25 +75,42 @@ public class GameManager : Singleton<GameManager>
     {
         _gamePanel.SetActive(true);
     }
+    public void SetEnableGamingPanel()
+    {
+        _gamePanel.SetActive(false);
+    }
 
-    public void ChangeTimeScaleToZero() 
+    public void ChangeTimeScaleToZero()
     {
         Time.timeScale = 0.0f;
     }
+    public void ChangeTimeScaleToOne()
+    {
+        Time.timeScale = 1.0f;
+    }
     public void PauseGame()
-    {        
-        Time.timeScale = 0.0f;        
+    {
+        Time.timeScale = 0.0f;
         IsGamePaused = true;
         _gamePanel?.SetActive(false);
-        GameManager.Instance.UpdateGameStates(GameStates.Pause);
+        UpdateGameStates(GameStates.Pause);
     }
-    public void ResumeGame() 
+    public void ResumeGame()
     {
         Time.timeScale = 1.0f;
         IsGamePaused = false;
-
+        UpdateGameStates(GameStates.InGame);
+    }
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(0);
         GameManager.Instance.UpdateGameStates(GameStates.InGame);
     }
+    private void OnApplicationFocus(bool focus)
+    {
+        PauseGame();
+    }
+
 
 
 
