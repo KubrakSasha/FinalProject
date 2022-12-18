@@ -5,7 +5,6 @@ public class PlayerMovementHandler : MonoBehaviour{
     private Rigidbody2D _rb;
     private Vector2 _moveDirection;
     private Vector2 _mousePosition;
-    public float speedMovement = 150;//
     private float _angle;
     private Camera _cam;
 
@@ -22,7 +21,7 @@ public class PlayerMovementHandler : MonoBehaviour{
     }
     private void FixedUpdate()
     {
-        _rb.velocity = _moveDirection * speedMovement;
+        _rb.velocity = _moveDirection * PlayerMain.Instance.Stats.SpeedMovement;
         _rb.rotation = _angle;
     }
     private void HandleMovement() 

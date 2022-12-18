@@ -156,7 +156,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _loots:
   - {fileID: 5653728769797234735, guid: a8d4f756974e0984cba3e52b3ed635d9, type: 3}
+  - {fileID: -5769381562278710707, guid: 19267de3e777d8c4f9e531e90338ef0f, type: 3}
+  - {fileID: 8899371630648240319, guid: 9cbe2b1fb9419e04688193663bc78dcc, type: 3}
   - {fileID: -4525393518177806804, guid: b090d76ed7195fd458f187d9adeaf3df, type: 3}
+  - {fileID: -2728760156494924195, guid: eea34066bcf2ff947aad0dc664cad78d, type: 3}
+  - {fileID: -5630837503095283079, guid: 4cd42c9712a2cd746b3997a6e75fb46d, type: 3}
+  - {fileID: 2282228547684992252, guid: f3c792a121bd9b6428672bc635f69094, type: 3}
+  - {fileID: -789159479312292782, guid: a995c321017a9bd40b3dd20c36d58973, type: 3}
+  - {fileID: 8287176163521059100, guid: 6194c98b28b4e614ea1e1aefcff52c2f, type: 3}
+  - {fileID: -7665553223485127833, guid: 3cf3a3839f8ae3d488b91a448856a1ac, type: 3}
 --- !u!82 &-6455804898581779128
 AudioSource:
   m_ObjectHideFlags: 0

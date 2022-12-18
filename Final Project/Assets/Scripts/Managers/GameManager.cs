@@ -6,8 +6,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public enum GameStates
-{    
+{
     InGame,
+    SkillSelection,
     Dead,
     Pause
 }
@@ -56,6 +57,9 @@ public class GameManager : Singleton<GameManager>
                 IsDead = false;
                 SetActiveGamePanel();
                 ChangeTimeScaleToOne();
+                break;
+            case GameStates.SkillSelection:
+                ChangeTimeScaleToZero();
                 break;
             case GameStates.Dead:
                 IsDead = true;

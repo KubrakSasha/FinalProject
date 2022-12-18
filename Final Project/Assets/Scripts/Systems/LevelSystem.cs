@@ -6,11 +6,12 @@ public class LevelSystem
     public event Action OnLevelChanged;
 
     private int _level;
-    private int _expirience;
-    private int _expirienceToNextLevel;
+    private float _expirience;
+    private float _expirienceToNextLevel;
+    private int _maxLevel = 11;
 
     public int Level => _level;
-    public int Expirience => _expirience;
+    public float Expirience => _expirience;
 
     public LevelSystem()
     {
@@ -19,11 +20,14 @@ public class LevelSystem
         _expirienceToNextLevel = 100;
     }
 
-    public void AddExpirience(int amount) 
+    public void AddExpirience(float amount) //
     {
-        _expirience += amount;
-        OnExpirienceChanged?.Invoke();
-        if (_expirience >= _expirienceToNextLevel)
+        if (_level < _maxLevel)
+        {
+            _expirience += amount;
+            OnExpirienceChanged?.Invoke();
+        }        
+        if (_expirience >= _expirienceToNextLevel && _level < _maxLevel)
         {
             _level++;
             OnLevelChanged?.Invoke();

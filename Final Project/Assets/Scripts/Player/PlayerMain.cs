@@ -2,7 +2,7 @@
 public class PlayerMain : Singleton<PlayerMain>
 {
     private PlayerStats _stats;
-    private PlayerShootingHandler _shootingHandler;
+    public PlayerShootingHandler _shootingHandler;
     private PlayerMovementHandler _movementHandler;
     
 
