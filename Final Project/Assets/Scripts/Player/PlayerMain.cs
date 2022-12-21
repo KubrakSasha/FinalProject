@@ -7,6 +7,7 @@ public class PlayerMain : Singleton<PlayerMain>
     
 
     public PlayerStats Stats => _stats;
+    public PlayerShootingHandler ShootingHandler => _shootingHandler;
     private void Awake()
     {
         _stats = GetComponent<PlayerStats>();

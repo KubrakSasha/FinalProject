@@ -8,8 +8,8 @@ using UnityEngine;
 public class Loot : MonoBehaviour
 {
     [SerializeField] protected GameObject _prefab;    
-    [SerializeField] protected int _dropChance;
+    [SerializeField] [Range (1, 100)]protected float _dropChance;
 
-    public int DropChance => _dropChance;
+    public float DropChance => _dropChance * PlayerMain.Instance.Stats.DropChanceMultyply;
     public GameObject Prefab => _prefab;
 }

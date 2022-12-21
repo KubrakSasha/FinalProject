@@ -7,16 +7,18 @@ public class HealthSystem
     public event Action OnDamaged;
     public event Action OnHealed;
 
-    private int _health;
-    private int _maxHealth;
+    private float _health;
+    private float _maxHealth;
+    
+    
 
-    public HealthSystem(int maxHealth)
+    public HealthSystem(float maxHealth)
     {
         _maxHealth = maxHealth;
         _health = maxHealth;
     }
 
-    public void ApplyDamgage(int amount) // или TakeDamage
+    public void ApplyDamgage(float amount) // или TakeDamage
     {
         _health -= amount;
         if (_health <= 0)
@@ -34,7 +36,7 @@ public class HealthSystem
     {
         OnDead?.Invoke();
     }
-    public void ApplyHeal(int amount) // или TakeDamage
+    public void ApplyHeal(float amount) // или TakeDamage
     {
         _health += amount;
         if (_health >= _maxHealth)
@@ -46,7 +48,11 @@ public class HealthSystem
     }
     public float GetHealthPercent()
     {
-        return (float)_health / _maxHealth;
+        return _health / _maxHealth;
+    }
+    public void SetMaxHealth(float coeff) 
+    {
+        _maxHealth*=coeff;
     }
 }
 

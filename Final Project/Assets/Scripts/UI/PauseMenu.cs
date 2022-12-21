@@ -17,22 +17,7 @@ public class PauseMenu : MonoBehaviour
     {
         GameManager.OnGameStatesChanged -= OnPauseMenuActive;
     }
-
-    //void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Z))
-    //    {
-    //        if (GameManager.IsGamePaused)
-    //        {
-    //            ResumeGame();
-
-    //        }
-    //        else
-    //        {
-    //            GameManager.Instance.PauseGame();
-    //        }
-    //    }
-    //}
+    
     public void ResumeGame()
     {
         GameManager.Instance.ResumeGame();

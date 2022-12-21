@@ -17,7 +17,10 @@ public class EnemyMain : MonoBehaviour
     [SerializeField] protected int _maxHealth = 100;
     [SerializeField] protected float _movementSpeed = 3;
     [SerializeField] protected int _damage;
-    public int Damage => _damage;
+    protected float _movementSpeedMultiply = 1;
+    protected float _damageMultiplier = 1;
+    public float Damage => _damage * _damageMultiplier;
+    public float MovementSpeed => _movementSpeed * _movementSpeedMultiply;
     public bool IsExplosive;
 
     private void Awake()
@@ -47,9 +50,17 @@ public class EnemyMain : MonoBehaviour
     }
     void FollowForPlayer()
     {
-        transform.position = Vector2.MoveTowards(transform.position, _player.position, _movementSpeed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, _player.position, MovementSpeed * Time.deltaTime);
         Vector2 directionToPlayer = (_player.position - transform.position).normalized;
         float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle);
-    }    
+    }
+    public void SetMovementSpeedCoefficient(float amount)
+    {
+        _movementSpeedMultiply = amount;
+    }
+    public void SetDamageCoefficient(float amount)
+    {
+        _damageMultiplier = amount;
+    }
 }

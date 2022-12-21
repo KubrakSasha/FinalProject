@@ -6,54 +6,73 @@ public class Weapon : MonoBehaviour
 {
     public enum WeaponTypes { Pistol, Rifle, Shotgun }
     public WeaponTypes WeaponType;
-    
+
+    private float _timeBetweenShotsMultiply = 1.0f;
+    private float _maxAmmoMultyply = 1.0f;
+    private float _timeReloadMultiply = 1.0f;
+    public List<WeaponTypes> WeaponTypess;
 
 
-    public float GetTimeBetweenShoot(WeaponTypes types) 
+
+    public void SetTimeBetweenShootCoefficient(float coef) 
     {
-        switch (types)
+        _timeBetweenShotsMultiply = coef;
+    }
+    public void SetMaxAmmoCoefficient(float coef)
+    {
+        _maxAmmoMultyply = coef;
+    }
+    public void SetTimeReloadCoefficient(float coef)
+    {
+        _timeReloadMultiply = coef;
+    }
+
+
+    public float GetTimeBetweenShoot()
+    {
+        switch (WeaponType)
         {
             case WeaponTypes.Pistol:
-                return 0.3f;                
+                return 0.3f * _timeBetweenShotsMultiply;
             case WeaponTypes.Rifle:
-                return 0.1f;                
+                return 0.1f *_timeBetweenShotsMultiply;
             case WeaponTypes.Shotgun:
-                return 0.5f;                                
+                return 0.5f * _timeBetweenShotsMultiply;
             default:
                 return 0;//
         }
     }
-    public float GetMaxAmmo(WeaponTypes types)
+    public float GetMaxAmmo()
     {
-        switch (types)
+        switch (WeaponType)
         {
             case WeaponTypes.Pistol:
-                return 12f;
+                return 12f * _maxAmmoMultyply;
             case WeaponTypes.Rifle:
-                return 30f;
+                return 30f * _maxAmmoMultyply;
             case WeaponTypes.Shotgun:
-                return 6f;
+                return 6f * _maxAmmoMultyply;
             default:
                 return 0;//
         }
     }
-    public float GetTimeReloadTime(WeaponTypes types)
+    public float GetTimeReloadTime()
     {
-        switch (types)
+        switch (WeaponType)
         {
             case WeaponTypes.Pistol:
-                return 2.0f;
+                return 2.0f * _timeReloadMultiply;
             case WeaponTypes.Rifle:
-                return 3.0f;
+                return 3.0f * _timeReloadMultiply;
             case WeaponTypes.Shotgun:
-                return 1.0f;
+                return 1.0f * _timeReloadMultiply;
             default:
                 return 0;//
         }
     }
-    public float GetShootForce(WeaponTypes types)
+    public float GetShootForce()
     {
-        switch (types)
+        switch (WeaponType)
         {
             case WeaponTypes.Pistol:
                 return 50f;
@@ -67,5 +86,12 @@ public class Weapon : MonoBehaviour
             default:
                 return 0;//
         }
+    }
+    public List<WeaponTypes> GetAllWeaponTypes()
+    {
+        WeaponTypess.Add(WeaponTypes.Pistol);
+        WeaponTypess.Add(WeaponTypes.Rifle);
+        WeaponTypess.Add(WeaponTypes.Shotgun);
+        return WeaponTypess;
     }
 }

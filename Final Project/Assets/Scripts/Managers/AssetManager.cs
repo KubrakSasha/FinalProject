@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class AssetManager : Singleton<AssetManager>
 {
+    public GameObject ExplosionPrefab;
     public SoundAudioClip[] soundAudioClips;
 
     [Serializable]

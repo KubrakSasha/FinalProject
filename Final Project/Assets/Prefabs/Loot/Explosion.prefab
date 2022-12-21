@@ -127,4 +127,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _prefab: {fileID: 2615951364546849296}
-  _dropChance: 30
+  _dropChance: 20
