@@ -1,10 +1,16 @@
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
-{
-    public bool IsPoisonBullet = false;
-    public bool IsExplosionBullet = true;
-    public bool IsFireBullet = false;
+{   
+    private void Awake()
+    {
+        //PlayerMain.Instance.Stats.OnExplosionBulletActive += Stats_OnExplosionBulletActive;
+    }
+
+    //private void Stats_OnExplosionBulletActive()
+    //{
+    //    IsExplosionBullet = true;
+    //}
     private void Update()
     {
             Destroy(gameObject, 2f);
@@ -15,7 +21,7 @@ public class Bullet : MonoBehaviour
         if (enemy != null)
         {
             enemy._healthSystem.ApplyDamgage(PlayerMain.Instance.Stats.Damage);
-            if (IsExplosionBullet == true)
+            if (PlayerMain.Instance.Stats.IsBulletExplosive == true)
             {
                 Debug.Log("ExplosionBullet");
                 Collider2D[] enemies = Physics2D.OverlapCircleAll(enemy.transform.position, 10);

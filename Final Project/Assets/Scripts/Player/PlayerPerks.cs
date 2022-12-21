@@ -118,10 +118,11 @@ public class PlayerPerks : MonoBehaviour
             Destroy(collision.gameObject);
         }
 
-        collision.TryGetComponent<NoReloading>(out NoReloading noReloading);//Подумать
+        collision.TryGetComponent<NoReloading>(out NoReloading noReloading);
         if (noReloading != null)
         {
-            //float currentAmmo = _shootingHandler
+            StartCoroutine(PlayerMain.Instance.ShootingHandler.SetUnlimiteAmmo());
+            Destroy(collision.gameObject);
         }
     }
 

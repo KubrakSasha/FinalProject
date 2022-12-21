@@ -50,5 +50,9 @@ public class HealthSystem
     {
         return _health / _maxHealth;
     }
+    public void SetMaxHealth(float coeff) 
+    {
+        _maxHealth*=coeff;
+    }
 }
 

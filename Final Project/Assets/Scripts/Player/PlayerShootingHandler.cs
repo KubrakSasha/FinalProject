@@ -1,8 +1,11 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PlayerShootingHandler : MonoBehaviour
 {
+    public event Action OnAmmoChanged;
     [SerializeField] private Transform _shootPoint;
     [SerializeField] private GameObject _bulletPrefab;
     [SerializeField] private GameObject _muzlePrefab;
@@ -11,6 +14,7 @@ public class PlayerShootingHandler : MonoBehaviour
     //private float _reloadtime = 2.0f;
     //private int _maxAmmo = 10;
     private float _currentAmmo;
+    public float CurrentAmmo => _currentAmmo;
 
     private bool _isReloading = false;
     public Weapon weapon;
@@ -24,7 +28,7 @@ public class PlayerShootingHandler : MonoBehaviour
         _currentAmmo = weapon.GetMaxAmmo();
     }
 
-    void FixedUpdate()
+    void Update()
     {
         Shoot();
     }
@@ -51,7 +55,7 @@ public class PlayerShootingHandler : MonoBehaviour
                 StartCoroutine(Reload());
                 return;
             }
-            _timer += Time.fixedDeltaTime;
+            _timer += Time.deltaTime;
             if (_timer > weapon.GetTimeBetweenShoot() && _isReloading == false)
             {
                 if (weapon.WeaponType == Weapon.WeaponTypes.Shotgun) 
@@ -79,10 +83,23 @@ public class PlayerShootingHandler : MonoBehaviour
                 
                 _timer = 0;
                 _currentAmmo--;
+                OnAmmoChanged?.Invoke();
             }
 
         }
     }
+    public IEnumerator SetUnlimiteAmmo() 
+    {
+        float temp = _currentAmmo;
+        _currentAmmo = 999;
+        yield return new WaitForSeconds(5);
+        _currentAmmo = temp;
+    }
+    //public float GetCurrentAmmo() 
+    //{
+    //    return _currentAmmo;
+    //} 
+
 
 
 }

@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
+    //public event Action OnExplosionBulletActive;
     private Weapon _weapon;
     public PlayerHealthBar healthBar;
     public PlayerExpirienceBar expirienceBar;
@@ -10,10 +11,12 @@ public class PlayerStats : MonoBehaviour
     public HealthSystem healthSystem;
     public LevelSystem levelSystem;
 
-    public GameObject ExplosionPrefab;
+    //public GameObject ExplosionPrefab;
 
     public PlayerSkills playerSkills;//
     public UISkills uiSkills;//
+
+    private bool _isBulletExplosive = false;
 
     private float _maxHealth = 100;
     private float _damage = 20;
@@ -32,6 +35,7 @@ public class PlayerStats : MonoBehaviour
     public float SpeedMovement => _speedMovement * _speedMovementMultiply;
     public float ExpiriencePerKill => _expiriencePerKill * _expiriencePerKillMultiply;
     public float MaxHealth => _maxHealth * _maxHealthMultiply;
+    public bool IsBulletExplosive => _isBulletExplosive;
     void Awake()// На старте выкидывало ошибку
     {
         healthSystem = new HealthSystem(_maxHealth);
@@ -84,8 +88,10 @@ public class PlayerStats : MonoBehaviour
                 SetDropChanceCoefficient(1.2f);
                 break;
             case (PlayerSkills.SkillType.ExplosionBullet):
+                SetExplosionBulletActive();
+                //OnExplosionBulletActive?.Invoke();
                 break;
-            case (PlayerSkills.SkillType.PoisonBullet):
+            case (PlayerSkills.SkillType.PoisonBullet)://
                 break;
             default:
                 break;
@@ -101,8 +107,8 @@ public class PlayerStats : MonoBehaviour
         _damageMultiply = amount;
     }
     private void SetMaxHealthCoefficient(float amount)
-    {        
-        _maxHealthMultiply = amount;
+    {
+        healthSystem.SetMaxHealth(amount);        
     }
     private void SetExpiriencePerKillCoefficient(float amount)
     {
@@ -111,6 +117,10 @@ public class PlayerStats : MonoBehaviour
     private void SetDropChanceCoefficient(float amount) 
     {
         _dropChanceMultiply = amount;
+    }
+    private void SetExplosionBulletActive() 
+    {
+        _isBulletExplosive = true;
     }
 
 
@@ -136,7 +146,7 @@ public class PlayerStats : MonoBehaviour
             healthSystem.ApplyDamgage(enemy.Damage);
             if (enemy.IsExplosive)
             {
-                GameObject explosion1 = Instantiate(ExplosionPrefab, enemy.transform.position, Quaternion.identity) as GameObject;
+                GameObject explosion1 = Instantiate(AssetManager.Instance.ExplosionPrefab, enemy.transform.position, Quaternion.identity) as GameObject;
                 SoundManager.Instance.PlaySound(SoundManager.Sound.Explosion);
                 GameManager.Instance.CameraShake.Shake(0.5f, 0.5f);
                 Destroy(enemy.gameObject);
@@ -147,53 +157,5 @@ public class PlayerStats : MonoBehaviour
         {
             healthSystem.ApplyDamgage(enemyBullet.Damage);
         }
-    }
-
-
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    collision.TryGetComponent<Heal>(out Heal heal);
-    //    if (heal != null)
-    //    {
-    //        healthSystem.ApplyHeal(30);
-    //        Destroy(collision.gameObject);
-    //    }
-
-
-    //    collision.TryGetComponent<Explosion>(out Explosion explosion);
-    //    if (explosion != null)
-    //    {
-    //        Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, 15);
-    //        foreach (Collider2D enemy in enemies)
-    //        {
-    //            enemy.TryGetComponent<EnemyMain>(out EnemyMain enem);
-    //            if (enem != null)
-    //            {
-    //                enem._healthSystem.ApplyDamgage(100);
-    //            }
-    //        }
-    //        GameManager.Instance.CameraShake.Shake(0.5f, 0.5f);
-    //        SoundManager.Instance.PlaySound(SoundManager.Sound.Explosion);
-    //        Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
-    //        Destroy(collision.gameObject);
-    //    }
-    //    collision.TryGetComponent<Pistol>(out Pistol pistol);
-    //    if (pistol!=null)
-    //    {
-    //        PlayerMain.Instance._shootingHandler.WeaponChange(Weapon.WeaponTypes.Pistol);
-    //        Destroy(collision.gameObject);
-    //    }
-    //    collision.TryGetComponent<Rifle>(out Rifle rifle);
-    //    if (rifle != null)
-    //    {
-    //        PlayerMain.Instance._shootingHandler.WeaponChange(Weapon.WeaponTypes.Rifle);
-    //        Destroy(collision.gameObject);
-    //    }
-    //    collision.TryGetComponent<Shotgun>(out Shotgun gun);
-    //    if (gun != null)
-    //    {
-    //        PlayerMain.Instance._shootingHandler.WeaponChange(Weapon.WeaponTypes.Shotgun);
-    //        Destroy(collision.gameObject);
-    //    }
-    //}
+    }    
 }
