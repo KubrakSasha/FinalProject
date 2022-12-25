@@ -60,6 +60,7 @@ public class GameManager : Singleton<GameManager>
                 break;
             case GameStates.SkillSelection:
                 ChangeTimeScaleToZero();
+                //SoundManager.Instance.ToggleEffects();
                 break;
             case GameStates.Dead:
                 IsDead = true;
@@ -67,6 +68,7 @@ public class GameManager : Singleton<GameManager>
                 SetEnableGamingPanel();
                 break;
             case GameStates.Pause:
+                //SoundManager.Instance.ToggleEffects();
                 break;
             default:
                 break;

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -8466197585279011828}
   - component: {fileID: 1824704845772752543}
   - component: {fileID: -6455804898581779128}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MovingEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,11 +175,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 7e4f4679640108c448abb8cd8a2ad276, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.06
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

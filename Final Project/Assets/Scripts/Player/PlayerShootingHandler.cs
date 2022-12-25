@@ -9,6 +9,7 @@ public class PlayerShootingHandler : MonoBehaviour
     [SerializeField] private Transform _shootPoint;
     [SerializeField] private GameObject _bulletPrefab;
     [SerializeField] private GameObject _muzlePrefab;
+    private Animator _animator;
     //private float _shotForce = 50;
     //private float _timeBetweenShoot = 0.3f;
     //private float _reloadtime = 2.0f;
@@ -17,15 +18,16 @@ public class PlayerShootingHandler : MonoBehaviour
     public float CurrentAmmo => _currentAmmo;
 
     private bool _isReloading = false;
-    public Weapon weapon;
+    private Weapon _weapon;
 
     private float _timer;
 
     private void Start()
     {
-        weapon = GetComponent<Weapon>();
-        weapon.WeaponType = Weapon.WeaponTypes.Pistol;
-        _currentAmmo = weapon.GetMaxAmmo();
+        _animator = GetComponent<Animator>();
+        _weapon = GetComponent<Weapon>();
+        _weapon.WeaponType = Weapon.WeaponTypes.Pistol;
+        _currentAmmo = _weapon.GetMaxAmmo();
     }
 
     void Update()
@@ -35,50 +37,84 @@ public class PlayerShootingHandler : MonoBehaviour
     public IEnumerator Reload()
     {
         _isReloading = true;
-
-        yield return new WaitForSeconds(weapon.GetTimeReloadTime());
-        //SoundManager.Instance.PlaySound(SoundManager.Sound.PistolReloading);
-
-        _currentAmmo = weapon.GetMaxAmmo();
+        _animator.SetBool("Reloading", true);
+        if (!SoundManager.Instance.Get().isPlaying)
+        {
+            SoundManager.Instance.PlaySound(_weapon.GetReloadSound());
+        }
+        yield return new WaitForSeconds(_weapon.GetTimeReloadTime());        
+        _currentAmmo = _weapon.GetMaxAmmo();
+        OnAmmoChanged?.Invoke();
         _isReloading = false;
+        _animator.SetBool("Reloading", false);
     }
     public void WeaponChange(Weapon.WeaponTypes types) 
-    { 
-        weapon.WeaponType = types;
+    {
+        _weapon.WeaponType = types;
+        if (_weapon.WeaponType == Weapon.WeaponTypes.Pistol)
+        {            
+            _animator.SetBool("Pistol", true);
+            _animator.SetBool("Rifle", false);
+            _animator.SetBool("Shotgun", false);
+        }
+        
+        if (_weapon.WeaponType == Weapon.WeaponTypes.Rifle)
+        {
+            _animator.SetBool("Pistol", false);
+            _animator.SetBool("Rifle", true);
+            _animator.SetBool("Shotgun", false);
+        }
+        if (_weapon.WeaponType == Weapon.WeaponTypes.Shotgun)
+        {
+            _animator.SetBool("Pistol", false);
+            _animator.SetBool("Rifle", false);
+            _animator.SetBool("Shotgun", true);
+        }
+        _currentAmmo = _weapon.GetMaxAmmo();
+        OnAmmoChanged?.Invoke();
     }
     private void Shoot()
     {
+        if (_currentAmmo <= 0)
+        {
+            StartCoroutine(Reload());
+            return;
+        }
         if (Input.GetButton("Fire1"))
         {
-            if (_currentAmmo <= 0)
-            {
-                StartCoroutine(Reload());
-                return;
-            }
+            //if (_currentAmmo <= 0)
+            //{
+            //    StartCoroutine(Reload());
+            //    return;
+            //}
             _timer += Time.deltaTime;
-            if (_timer > weapon.GetTimeBetweenShoot() && _isReloading == false)
+            if (_timer > _weapon.GetTimeBetweenShoot() && _isReloading == false)
             {
-                if (weapon.WeaponType == Weapon.WeaponTypes.Shotgun) 
+                if (_weapon.WeaponType == Weapon.WeaponTypes.Shotgun) 
                 {
                     int shotgunShells = 4;
                     for (int i = 0; i < shotgunShells; i++)
                     {
+                        //_animator.SetTrigger("Shooting");
                         GameObject bulletS = Instantiate(_bulletPrefab, _shootPoint.position +
                         new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized * Random.Range(-3f, 3f), _shootPoint.rotation);
                         Rigidbody2D rb1 = bulletS.GetComponent<Rigidbody2D>();
-                        rb1.AddForce(_shootPoint.up * weapon.GetShootForce(), ForceMode2D.Impulse);
+                        rb1.AddForce(_shootPoint.up * _weapon.GetShootForce(), ForceMode2D.Impulse);
+                        SoundManager.Instance.PlaySound(_weapon.GetShotSound());
+                        GameManager.Instance.CameraShake.Shake(0.1f, 0.1f);
+                        //_animator.ResetTrigger("Shooting");
                     }     
                     
                 }
                 else
-                {
-                    GameObject bullet = Instantiate(_bulletPrefab, _shootPoint.position, _shootPoint.rotation);//◊≈√Œ ¡Œ ŒÃ
+                {                    
+                    GameObject bullet = Instantiate(_bulletPrefab, _shootPoint.position, _shootPoint.rotation);
                     GameObject muzle = Instantiate(_muzlePrefab, _shootPoint.position, _shootPoint.rotation);
                     Destroy(muzle, 0.1f);
                     Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-                    rb.AddForce(_shootPoint.up * weapon.GetShootForce(), ForceMode2D.Impulse);
-                    SoundManager.Instance.PlaySound(SoundManager.Sound.PistolShot);
-                    GameManager.Instance.CameraShake.Shake(0.1f, 0.1f);
+                    rb.AddForce(_shootPoint.up * _weapon.GetShootForce(), ForceMode2D.Impulse);
+                    SoundManager.Instance.PlaySound(_weapon.GetShotSound());
+                    GameManager.Instance.CameraShake.Shake(0.1f, 0.1f);                    
                 }
                 
                 _timer = 0;
@@ -92,14 +128,9 @@ public class PlayerShootingHandler : MonoBehaviour
     {
         float temp = _currentAmmo;
         _currentAmmo = 999;
+        OnAmmoChanged?.Invoke();
         yield return new WaitForSeconds(5);
         _currentAmmo = temp;
+        OnAmmoChanged?.Invoke();
     }
-    //public float GetCurrentAmmo() 
-    //{
-    //    return _currentAmmo;
-    //} 
-
-
-
 }

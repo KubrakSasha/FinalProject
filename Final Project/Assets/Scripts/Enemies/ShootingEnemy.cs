@@ -7,8 +7,11 @@ public class ShootingEnemy : EnemyMain
 {
     private float _shootingDistance = 10;
     private float _shootingForce = 10;
+    
     [SerializeField] private Transform _shootPoint;
     [SerializeField] private GameObject _bulletPrefab;
+
+
 
     [SerializeField] protected float reloadTime = 2.0f;    
     protected float reloadTimer;
@@ -16,8 +19,14 @@ public class ShootingEnemy : EnemyMain
     private void Update() 
     {
         base.Update();
-        if (Vector2.Distance(transform.position, _player.position) < _shootingDistance)
+        if (Vector2.Distance(transform.position, _player.position) < _shootingDistance) 
+        {
+
+            //_animator.SetBool("Shooting", true);
             Shoot();
+            //_animator.SetBool("Shooting", false);
+        }
+            
     }
 
     private void Shoot()
@@ -28,10 +37,15 @@ public class ShootingEnemy : EnemyMain
             reloadTimer += Time.deltaTime;
             if (reloadTime < reloadTimer)
             {
+                _animator.SetTrigger("Shoot");
+                
                 var bullet = Instantiate(_bulletPrefab, _shootPoint.position, _shootPoint.rotation);
                 Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
                 rb.AddForce(_shootPoint.right * _shootingForce, ForceMode2D.Impulse);
                 reloadTimer = 0;
+                _animator.SetTrigger("Stop");
+                //_animator.SetBool("Shooting", false);
+
             }
         }
     }

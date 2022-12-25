@@ -12,6 +12,8 @@ public class EnemyMain : MonoBehaviour
 
     public GameObject DeathPrefab;
     protected Transform _player;
+    protected Animator _animator;
+    
 
     public HealthSystem _healthSystem;
     [SerializeField] protected int _maxHealth = 100;
@@ -25,6 +27,7 @@ public class EnemyMain : MonoBehaviour
 
     private void Awake()
     {
+        _animator = GetComponent<Animator>();
         _player = PlayerMain.Instance.GetComponent<Transform>();
 
     }
@@ -41,9 +44,18 @@ public class EnemyMain : MonoBehaviour
 
     private void HealthSystem_OnDead()
     {
-        GetComponent<LootBag>().InstantiateLoot(transform.position);
+            
+        _animator.SetBool("Death", true);
+        if (IsExplosive)
+        {
+            Instantiate(AssetManager.Instance.ExplosionPrefab, transform.position, Quaternion.identity);
+            Destroy(gameObject);
+        }
         Instantiate(DeathPrefab, transform.position, Quaternion.identity);
-        Destroy(gameObject);
+        _movementSpeed = 0;
+        GetComponent<LootBag>().InstantiateLoot(transform.position);
+        Destroy(gameObject, 1f);
+
         OnEnemyDied?.Invoke();
         _healthSystem.OnDead -= HealthSystem_OnDead;
         //SoundManager.Instance.PlaySound(SoundManager.Sound.EnemyHit);

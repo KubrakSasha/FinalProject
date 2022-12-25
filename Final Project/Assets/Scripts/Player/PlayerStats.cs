@@ -21,7 +21,7 @@ public class PlayerStats : MonoBehaviour
     private float _maxHealth = 100;
     private float _damage = 20;
     private float _speedMovement = 8;
-    private float _expiriencePerKill = 40;   
+    private float _expiriencePerKill = 5;   
 
 
     private float _damageMultiply = 1;
@@ -136,6 +136,12 @@ public class PlayerStats : MonoBehaviour
     {
         healthSystem.OnDead -= HealthSystem_OnDead;
         levelSystem.OnLevelChanged -= LevelSystemOnLevelChanged;
+
+        
+        EnemyMain.OnEnemyDied -= EnemyMain_OnEnemyDied;
+        playerSkills.OnSkillActivate -= PlayerSkills_OnSkillUnlocked;
+
+
         GameManager.Instance.UpdateGameStates(GameStates.Dead);
     }
     private void OnCollisionEnter2D(Collision2D collision)

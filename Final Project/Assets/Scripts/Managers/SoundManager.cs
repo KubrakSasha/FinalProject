@@ -25,7 +25,13 @@ public class SoundManager : Singleton<SoundManager>
     public enum Sound 
     {
         PistolShot,
+        RifleShot,
+        ShotgunShot,
+
         PistolReloading,
+        RifleReloading,
+        ShotgunReloading,
+
         EnemyHit,
         EnemiDie,
         EnemyMoving,
@@ -36,6 +42,7 @@ public class SoundManager : Singleton<SoundManager>
     {
         VolumeSettings = AudioListener.volume;
         PlayerPrefs.SetFloat("Volume", VolumeSettings);
+        
     }
 
     public void PlaySound(Sound sound) 
@@ -65,6 +72,10 @@ public class SoundManager : Singleton<SoundManager>
     public void ToggleEffects() 
     {
         _effectSorce.mute = !_effectSorce.mute;
+    }
+    public AudioSource Get() 
+    {
+        return _effectSorce;    
     }
     //public void 
     

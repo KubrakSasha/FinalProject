@@ -7,15 +7,19 @@ public class PlayerMovementHandler : MonoBehaviour{
     private Vector2 _mousePosition;
     private float _angle;
     private Camera _cam;
+    //private Animator _animator;
 
 
     private void Start()
     {
+        //_animator = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody2D>();
         _cam = Camera.main;
     }
     private void Update()
     {
+        //_animator.SetFloat("MovingSpeed", _moveDirection.sqrMagnitude);
+        
         HandleMovement();  
         HandleRotation();
     }

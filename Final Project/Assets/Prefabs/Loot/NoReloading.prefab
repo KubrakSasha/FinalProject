@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6796939633458074653}
   - component: {fileID: 4378841356788328309}
   - component: {fileID: -2728760156494924195}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: NoReloading
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,4 +115,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _prefab: {fileID: 5264668502534283442}
-  _dropChance: 12
+  _dropChance: 100
