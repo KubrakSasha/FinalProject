@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
@@ -11,17 +12,18 @@ public class PlayerStats : MonoBehaviour
     public HealthSystem healthSystem;
     public LevelSystem levelSystem;
 
-    //public GameObject ExplosionPrefab;
+    //public GameObject BigExplosionPrefab;
 
     public PlayerSkills playerSkills;//
     public UISkills uiSkills;//
 
     private bool _isBulletExplosive = false;
+    private bool _isBulletPoison = false;
 
     private float _maxHealth = 100;
     private float _damage = 20;
-    private float _speedMovement = 8;
-    private float _expiriencePerKill = 5;   
+    private float _speedMovement = 4;
+    private float _expiriencePerKill = 4;   
 
 
     private float _damageMultiply = 1;
@@ -36,6 +38,7 @@ public class PlayerStats : MonoBehaviour
     public float ExpiriencePerKill => _expiriencePerKill * _expiriencePerKillMultiply;
     public float MaxHealth => _maxHealth * _maxHealthMultiply;
     public bool IsBulletExplosive => _isBulletExplosive;
+    public bool IsBulletPoison => _isBulletPoison;
     void Awake()// На старте выкидывало ошибку
     {
         healthSystem = new HealthSystem(_maxHealth);
@@ -55,9 +58,10 @@ public class PlayerStats : MonoBehaviour
     }
 
     private void LevelSystemOnLevelChanged()
-    {
+    {        
         GameManager.Instance.UpdateGameStates(GameStates.SkillSelection);
     }
+   
 
     private void PlayerSkills_OnSkillUnlocked(PlayerSkills.SkillType type)//
     {
@@ -91,7 +95,8 @@ public class PlayerStats : MonoBehaviour
                 SetExplosionBulletActive();
                 //OnExplosionBulletActive?.Invoke();
                 break;
-            case (PlayerSkills.SkillType.PoisonBullet)://
+            case (PlayerSkills.SkillType.PoisonBullet):
+                SetPoisonBulletActive();//
                 break;
             default:
                 break;
@@ -121,6 +126,10 @@ public class PlayerStats : MonoBehaviour
     private void SetExplosionBulletActive() 
     {
         _isBulletExplosive = true;
+    }
+    private void SetPoisonBulletActive() 
+    {
+        _isBulletPoison = true;
     }
 
 
@@ -152,7 +161,7 @@ public class PlayerStats : MonoBehaviour
             healthSystem.ApplyDamgage(enemy.Damage);
             if (enemy.IsExplosive)
             {
-                GameObject explosion1 = Instantiate(AssetManager.Instance.ExplosionPrefab, enemy.transform.position, Quaternion.identity) as GameObject;
+                GameObject explosion1 = Instantiate(AssetManager.Instance.BigExplosionPrefab, enemy.transform.position, Quaternion.identity) as GameObject;
                 SoundManager.Instance.PlaySound(SoundManager.Sound.Explosion);
                 GameManager.Instance.CameraShake.Shake(0.5f, 0.5f);
                 Destroy(enemy.gameObject);

@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using UnityEngine;
 
 public class HealthSystem
 {
@@ -54,5 +56,15 @@ public class HealthSystem
     {
         _maxHealth*=coeff;
     }
+    public IEnumerator ApplyPoisoDamage(float amount) 
+    {
+        ApplyDamgage(amount);
+        yield return new WaitForSeconds(2f);
+        ApplyDamgage(amount);
+        yield return new WaitForSeconds(2f);
+        ApplyDamgage(amount);
+        yield return new WaitForSeconds(2f);
+    }
+    
 }
 

@@ -16,6 +16,7 @@ public class PlayerShootingHandler : MonoBehaviour
     //private int _maxAmmo = 10;
     private float _currentAmmo;
     public float CurrentAmmo => _currentAmmo;
+    public Weapon Weapon => _weapon;
 
     private bool _isReloading = false;
     private Weapon _weapon;
@@ -97,11 +98,11 @@ public class PlayerShootingHandler : MonoBehaviour
                     {
                         //_animator.SetTrigger("Shooting");
                         GameObject bulletS = Instantiate(_bulletPrefab, _shootPoint.position +
-                        new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized * Random.Range(-3f, 3f), _shootPoint.rotation);
+                        new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized * Random.Range(-2f, 2f), _shootPoint.rotation);
                         Rigidbody2D rb1 = bulletS.GetComponent<Rigidbody2D>();
                         rb1.AddForce(_shootPoint.up * _weapon.GetShootForce(), ForceMode2D.Impulse);
                         SoundManager.Instance.PlaySound(_weapon.GetShotSound());
-                        GameManager.Instance.CameraShake.Shake(0.1f, 0.1f);
+                        //GameManager.Instance.CameraShake.Shake(0.1f, 0.1f);
                         //_animator.ResetTrigger("Shooting");
                     }     
                     
@@ -114,7 +115,7 @@ public class PlayerShootingHandler : MonoBehaviour
                     Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
                     rb.AddForce(_shootPoint.up * _weapon.GetShootForce(), ForceMode2D.Impulse);
                     SoundManager.Instance.PlaySound(_weapon.GetShotSound());
-                    GameManager.Instance.CameraShake.Shake(0.1f, 0.1f);                    
+                    //GameManager.Instance.CameraShake.Shake(0.1f, 0.1f);                    
                 }
                 
                 _timer = 0;
@@ -124,6 +125,7 @@ public class PlayerShootingHandler : MonoBehaviour
 
         }
     }
+    
     public IEnumerator SetUnlimiteAmmo() 
     {
         float temp = _currentAmmo;

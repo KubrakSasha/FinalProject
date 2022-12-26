@@ -1,9 +1,10 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Crosshair : MonoBehaviour
 {
-    [SerializeField] private Text _text;
+    [SerializeField] private TextMeshProUGUI _text;
     //public Vector3 _offset = new Vector3(0,3,0);
     void Start()
     {
@@ -20,15 +21,18 @@ public class Crosshair : MonoBehaviour
     {
         Vector2 crosshairPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         transform.position = crosshairPosition;
+        Cursor.lockState = CursorLockMode.Confined;
         //_text.transform.position = transform.position + _offset;
 
     }
     private void SetCurrentAmmoCountText() 
     {
-        if (PlayerMain.Instance.ShootingHandler.CurrentAmmo == 0) 
+        if (PlayerMain.Instance.ShootingHandler.CurrentAmmo == 0)
         {
-            _text.text = "Reloading";
+            _text.text = "Reloading...";
         }
-        _text.text = "." + PlayerMain.Instance.ShootingHandler.CurrentAmmo ;
+        else
+        _text.text = "Ammo " + (int)PlayerMain.Instance.ShootingHandler.CurrentAmmo + "." + (int)PlayerMain.Instance.ShootingHandler.Weapon.GetMaxAmmo();
+        
     }
 }

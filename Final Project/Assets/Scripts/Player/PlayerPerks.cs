@@ -43,6 +43,8 @@ public class PlayerPerks : MonoBehaviour
         {
             _stats.healthSystem.ApplyHeal(30);
             Destroy(collision.gameObject);
+            Instantiate(AssetManager.Instance.PerkHealthPrefab, transform.position, Quaternion.identity);
+
         }
 
 
@@ -60,7 +62,7 @@ public class PlayerPerks : MonoBehaviour
             }
             GameManager.Instance.CameraShake.Shake(0.5f, 0.5f);
             SoundManager.Instance.PlaySound(SoundManager.Sound.Explosion);
-            Instantiate(AssetManager.Instance.ExplosionPrefab, transform.position, Quaternion.identity);
+            Instantiate(AssetManager.Instance.BigExplosionPrefab, transform.position, Quaternion.identity);
             Destroy(collision.gameObject);
         }
 
@@ -91,6 +93,7 @@ public class PlayerPerks : MonoBehaviour
         collision.TryGetComponent<Freeze>(out Freeze freeze);
         if (freeze != null)
         {
+            Instantiate(AssetManager.Instance.PerkFreezePrefab, transform.position, Quaternion.identity);
             StartCoroutine(FreezeOrSlowDownEnemies(0));
             Destroy(collision.gameObject);
         }
@@ -107,8 +110,9 @@ public class PlayerPerks : MonoBehaviour
         collision.TryGetComponent<GodMode>(out GodMode godMode);
         if (godMode != null)
         {
+            Instantiate(AssetManager.Instance.PerkGodModePrefab, transform.position, Quaternion.identity);
             StartCoroutine(GodMode());
-            Destroy(collision.gameObject);
+            Destroy(collision.gameObject);            
         }
 
         collision.TryGetComponent<RandomWeapon>(out RandomWeapon randomWeapon);

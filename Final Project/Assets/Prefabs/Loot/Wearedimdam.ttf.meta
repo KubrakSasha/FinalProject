@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 5f7e0cca13e227b45868fc11d86401a4
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - WeAreDIMDAM
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 58a0dd34b11356c4a932f207b29b17ba, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

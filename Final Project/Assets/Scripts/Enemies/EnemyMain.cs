@@ -24,6 +24,7 @@ public class EnemyMain : MonoBehaviour
     public float Damage => _damage * _damageMultiplier;
     public float MovementSpeed => _movementSpeed * _movementSpeedMultiply;
     public bool IsExplosive;
+    protected bool _isAlive = true;
 
     private void Awake()
     {
@@ -39,6 +40,7 @@ public class EnemyMain : MonoBehaviour
     }
     protected void Update()
     {
+        if(_isAlive)
         FollowForPlayer();
     }
 
@@ -46,15 +48,19 @@ public class EnemyMain : MonoBehaviour
     {
             
         _animator.SetBool("Death", true);
+        _isAlive = false;
         if (IsExplosive)
         {
-            Instantiate(AssetManager.Instance.ExplosionPrefab, transform.position, Quaternion.identity);
+            Instantiate(AssetManager.Instance.BigExplosionPrefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
         Instantiate(DeathPrefab, transform.position, Quaternion.identity);
         _movementSpeed = 0;
+        
         GetComponent<LootBag>().InstantiateLoot(transform.position);
-        Destroy(gameObject, 1f);
+        GetComponent<CircleCollider2D>().enabled = false;
+        Destroy(gameObject, 20f);
+        Instantiate(AssetManager.Instance.BloodPrefab, transform.position, Quaternion.identity);
 
         OnEnemyDied?.Invoke();
         _healthSystem.OnDead -= HealthSystem_OnDead;

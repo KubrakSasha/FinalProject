@@ -9,6 +9,8 @@ public class UISkills : MonoBehaviour
 {
     private PlayerSkills _playerSkills;
     [SerializeField] private GameObject _skills;
+
+    [SerializeField] private Image _lockImage;
     //private LevelSystem _levelSystem;
 
     //private List<SkillButton> _buttons;
@@ -17,6 +19,8 @@ public class UISkills : MonoBehaviour
         //_skills.SetActive(false);
         GameManager.OnGameStatesChanged += OnSkillsMenuActive;
         transform.Find("LongDistanceRunner").GetComponent<Button>().onClick.AddListener(delegate { SetSkillEnable(SkillType.LongDistanceRunner); });
+        //transform.Find("LongDistanceRunner").GetComponent<Button>().onClick.AddListener(ChangeImageToLock);
+
         transform.Find("FastShoot").GetComponent<Button>().onClick.AddListener(delegate { SetSkillEnable(SkillType.FastShoot); });
         transform.Find("FastLoader").GetComponent<Button>().onClick.AddListener(delegate { SetSkillEnable(SkillType.FastLoader); });
         transform.Find("AmmoManiac").GetComponent<Button>().onClick.AddListener(delegate { SetSkillEnable(SkillType.AmmoManiac); });
@@ -28,6 +32,11 @@ public class UISkills : MonoBehaviour
         transform.Find("PoisonBullet").GetComponent<Button>().onClick.AddListener(delegate { SetSkillEnable(SkillType.PoisonBullet); });
     }
 
+    public void ChangeImageToLock() 
+    {
+        transform.Find("LongDistanceRunner").GetComponent<Button>().GetComponent<Image>().sprite = _lockImage.sprite;
+        
+    }
     private void OnSkillsMenuActive(GameStates state)
     {
         _skills.SetActive(state == GameStates.SkillSelection);       
@@ -36,6 +45,8 @@ public class UISkills : MonoBehaviour
     public void SetSkillEnable(PlayerSkills.SkillType type) 
     {
         _playerSkills.SetActiveSkill(type);
+        //GetComponent<Button>().enabled = false;
+
     }
 
     public void SetPlayerSkills(PlayerSkills skills)

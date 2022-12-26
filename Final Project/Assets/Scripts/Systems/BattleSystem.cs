@@ -133,7 +133,7 @@ public class BattleSystem : MonoBehaviour
         {
             EnemyMain enemy = GetNewInstance(GetRandomSpawnPoint());// Random factory??
             _standEnemies.Add(enemy);
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.01f);
             //yield return new WaitForSeconds(1 / _wavesList.Rate);
         }
         _waveState = WaveState.Waiting;
