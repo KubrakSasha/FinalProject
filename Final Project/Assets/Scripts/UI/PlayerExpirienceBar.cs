@@ -30,8 +30,8 @@ public class PlayerExpirienceBar : MonoBehaviour
 
     private void LevelSystem_OnExpirienceChanged()
     {
-
-        _bar.localScale = new Vector2(_levelSystem.GetExpiriencePercent(), 1.0f);
+        _bar.GetComponent<Image>().fillAmount = _levelSystem.GetExpiriencePercent();
+        //_bar.localScale = new Vector2(_levelSystem.GetExpiriencePercent(), 1.0f);
     }
     private void OnDestroy()
     {
