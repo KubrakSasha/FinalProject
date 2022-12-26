@@ -31373,6 +31373,7 @@ GameObject:
   - component: {fileID: 1571209929}
   - component: {fileID: 1571209930}
   - component: {fileID: 1571209931}
+  - component: {fileID: 1571209933}
   - component: {fileID: 1571209932}
   m_Layer: 3
   m_Name: Player
@@ -31537,9 +31538,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27193b56c7a8dba4e99dacef5325166b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthBar: {fileID: 239517245}
-  expirienceBar: {fileID: 1806784799}
-  uiSkills: {fileID: 1775318000}
+  _healthBar: {fileID: 239517245}
+  _expirienceBar: {fileID: 1806784799}
+  _uiSkills: {fileID: 1775318000}
 --- !u!114 &1571209930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31586,6 +31587,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1571209933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571209920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cf012dcd87637446805f50a1afca963, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WeaponType: 0
+  WeaponTypess: 
 --- !u!1 &1572521522
 GameObject:
   m_ObjectHideFlags: 0
@@ -35433,6 +35448,7 @@ MonoBehaviour:
   _effectSorce: {fileID: 1753785024}
   _enemySorce: {fileID: 0}
   VolumeSettings: 0
+  WavesCount: 0
 --- !u!1 &1763139531
 GameObject:
   m_ObjectHideFlags: 0
@@ -115318,10 +115334,12 @@ MonoBehaviour:
   LevelUpPrefab: {fileID: 100000, guid: ada5d62ffe762ce4fbccc70dcdbc9022, type: 3}
   PoisonPrefab: {fileID: 0}
   BloodPrefab: {fileID: 3709898106726225611, guid: 0aa596db77d1c6b478b68792c7fe4dfa, type: 3}
+  DeathPrefab: {fileID: 5985634496115995773, guid: 463cf9f7af4680240898f6aeba3fe3e6, type: 3}
   PerkLuckyPrefab: {fileID: 0}
   PerkHealthPrefab: {fileID: 100004, guid: 3af6f68141914ca43ba39b2403757bd0, type: 3}
   PerkGodModePrefab: {fileID: 1844191813266838, guid: 968c924d2be019d4b9e67647551eec3e, type: 3}
   PerkFreezePrefab: {fileID: 5112403345868107898, guid: 6f34ef0d986e9db4199cf75805f79753, type: 3}
+  EnemyBulletPrefab: {fileID: 4162253048748551865, guid: 2d56239d737ac7a4dabec7aed57c1426, type: 3}
   LockImage: {fileID: 21300000, guid: 0b8b816ad70256841bf50c1ceceaa5ff, type: 3}
   soundAudioClips:
   - Sound: 0
@@ -116374,13 +116392,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54669064fc10e4f4d92bd07c21942319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _timeBetweenWaves: 10
   _enemyMainPrefabs:
   - {fileID: -8466197585279011828, guid: ebc74902eb9d2284abc99673635fcc4f, type: 3}
   - {fileID: 7902005287497224522, guid: f890cc4bdb55ec74a9a2033ebdb2f2fb, type: 3}
   - {fileID: 8452777665364922340, guid: 28ce1a4fbfa0a7847bf75419f7691231, type: 3}
-  _timeBetweenWaves: 10
   _enemiesInWave: 5
-  WavesSpawn: 5
 --- !u!1 &2000659015
 GameObject:
   m_ObjectHideFlags: 0

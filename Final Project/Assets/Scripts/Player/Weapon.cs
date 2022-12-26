@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,11 +10,11 @@ public class Weapon : MonoBehaviour
         Shotgun 
     }
     public WeaponTypes WeaponType;
+    public List<WeaponTypes> WeaponTypess;
 
     private float _timeBetweenShotsMultiply = 1.0f;
     private float _maxAmmoMultyply = 1.0f;
-    private float _timeReloadMultiply = 1.0f;
-    public List<WeaponTypes> WeaponTypess;
+    private float _timeReloadMultiply = 1.0f;   
 
     public void SetTimeBetweenShootCoefficient(float coef) 
     {
@@ -29,8 +28,6 @@ public class Weapon : MonoBehaviour
     {
         _timeReloadMultiply = coef;
     }
-
-
     public float GetTimeBetweenShoot()
     {
         switch (WeaponType)

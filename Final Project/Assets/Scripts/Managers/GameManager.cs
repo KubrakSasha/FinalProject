@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,7 +7,8 @@ public enum GameStates
     InGame,
     SkillSelection,
     Dead,
-    Pause
+    Pause,
+    Win
 }
 public class GameManager : Singleton<GameManager>
 {
@@ -18,27 +16,29 @@ public class GameManager : Singleton<GameManager>
     public static Action<GameStates> OnGameStatesChanged;
     public static bool IsGamePaused = false;
     public static bool IsDead = false;
+    public static bool IsScillSelection = false;
     private GameStates _gameStates;
-    [SerializeField] private GameObject _gamePanel;// придумать куда деть
+    [SerializeField] private GameObject _gamePanel;    // придумать куда деть
+
     private void Awake()
     {
         CameraShake = GetComponent<CameraShake>();
-
     }
+
     private void Start()
     {
         UpdateGameStates(GameStates.InGame);
     }
+
     private void Update()
     {
-        if (IsDead == false)
+        if (IsDead == false && IsScillSelection == false)
         {
-            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Z))
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
                 if (IsGamePaused)
                 {
                     ResumeGame();
-
                 }
                 else
                 {
@@ -46,8 +46,8 @@ public class GameManager : Singleton<GameManager>
                 }
             }
         }
-
     }
+    
     public void UpdateGameStates(GameStates state)
     {
         _gameStates = state;
@@ -55,11 +55,15 @@ public class GameManager : Singleton<GameManager>
         {
             case GameStates.InGame:
                 IsDead = false;
+                IsScillSelection = false;
                 SetActiveGamePanel();
                 ChangeTimeScaleToOne();
+                AudioListener.pause = false;
                 break;
             case GameStates.SkillSelection:
                 ChangeTimeScaleToZero();
+                IsScillSelection = true;
+                AudioListener.pause = true;
                 //SoundManager.Instance.ToggleEffects();
                 break;
             case GameStates.Dead:
@@ -70,6 +74,10 @@ public class GameManager : Singleton<GameManager>
             case GameStates.Pause:
                 //SoundManager.Instance.ToggleEffects();
                 break;
+            case GameStates.Win:
+                ChangeTimeScaleToZero();
+                break;
+
             default:
                 break;
         }
@@ -81,21 +89,22 @@ public class GameManager : Singleton<GameManager>
     {
         _gamePanel.SetActive(true);
     }
-    public void SetEnableGamingPanel()
+    private void SetEnableGamingPanel()
     {
         _gamePanel.SetActive(false);
     }
 
-    public void ChangeTimeScaleToZero()
+    private void ChangeTimeScaleToZero()
     {
         Time.timeScale = 0.0f;
     }
-    public void ChangeTimeScaleToOne()
+    private void ChangeTimeScaleToOne()
     {
         Time.timeScale = 1.0f;
     }
-    public void PauseGame()
+    private void PauseGame()
     {
+        AudioListener.pause = true;
         Time.timeScale = 0.0f;
         IsGamePaused = true;
         _gamePanel?.SetActive(false);

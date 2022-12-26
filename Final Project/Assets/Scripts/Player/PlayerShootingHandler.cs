@@ -6,22 +6,18 @@ using Random = UnityEngine.Random;
 public class PlayerShootingHandler : MonoBehaviour
 {
     public event Action OnAmmoChanged;
+
     [SerializeField] private Transform _shootPoint;
     [SerializeField] private GameObject _bulletPrefab;
     [SerializeField] private GameObject _muzlePrefab;
-    private Animator _animator;
-    //private float _shotForce = 50;
-    //private float _timeBetweenShoot = 0.3f;
-    //private float _reloadtime = 2.0f;
-    //private int _maxAmmo = 10;
+    private Animator _animator;   
     private float _currentAmmo;
-    public float CurrentAmmo => _currentAmmo;
-    public Weapon Weapon => _weapon;
-
     private bool _isReloading = false;
     private Weapon _weapon;
-
     private float _timer;
+
+    public float CurrentAmmo => _currentAmmo;
+    public Weapon Weapon => _weapon;
 
     private void Start()
     {
@@ -82,12 +78,7 @@ public class PlayerShootingHandler : MonoBehaviour
             return;
         }
         if (Input.GetButton("Fire1"))
-        {
-            //if (_currentAmmo <= 0)
-            //{
-            //    StartCoroutine(Reload());
-            //    return;
-            //}
+        {            
             _timer += Time.deltaTime;
             if (_timer > _weapon.GetTimeBetweenShoot() && _isReloading == false)
             {
@@ -95,17 +86,13 @@ public class PlayerShootingHandler : MonoBehaviour
                 {
                     int shotgunShells = 4;
                     for (int i = 0; i < shotgunShells; i++)
-                    {
-                        //_animator.SetTrigger("Shooting");
+                    {                        
                         GameObject bulletS = Instantiate(_bulletPrefab, _shootPoint.position +
                         new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized * Random.Range(-2f, 2f), _shootPoint.rotation);
                         Rigidbody2D rb1 = bulletS.GetComponent<Rigidbody2D>();
                         rb1.AddForce(_shootPoint.up * _weapon.GetShootForce(), ForceMode2D.Impulse);
-                        SoundManager.Instance.PlaySound(_weapon.GetShotSound());
-                        //GameManager.Instance.CameraShake.Shake(0.1f, 0.1f);
-                        //_animator.ResetTrigger("Shooting");
-                    }     
-                    
+                        SoundManager.Instance.PlaySound(_weapon.GetShotSound());                        
+                    }           
                 }
                 else
                 {                    
@@ -114,18 +101,14 @@ public class PlayerShootingHandler : MonoBehaviour
                     Destroy(muzle, 0.1f);
                     Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
                     rb.AddForce(_shootPoint.up * _weapon.GetShootForce(), ForceMode2D.Impulse);
-                    SoundManager.Instance.PlaySound(_weapon.GetShotSound());
-                    //GameManager.Instance.CameraShake.Shake(0.1f, 0.1f);                    
-                }
-                
+                    SoundManager.Instance.PlaySound(_weapon.GetShotSound());                                      
+                }                
                 _timer = 0;
                 _currentAmmo--;
                 OnAmmoChanged?.Invoke();
             }
-
         }
-    }
-    
+    }    
     public IEnumerator SetUnlimiteAmmo() 
     {
         float temp = _currentAmmo;

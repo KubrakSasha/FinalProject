@@ -32,7 +32,7 @@ public class Crosshair : MonoBehaviour
             _text.text = "Reloading...";
         }
         else
-        _text.text = "Ammo " + (int)PlayerMain.Instance.ShootingHandler.CurrentAmmo + "." + (int)PlayerMain.Instance.ShootingHandler.Weapon.GetMaxAmmo();
+        _text.text = "Ammo " + (int)PlayerMain.Instance.ShootingHandler.CurrentAmmo + "/" + (int)PlayerMain.Instance.ShootingHandler.Weapon.GetMaxAmmo();
         
     }
 }

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PlayerDeadMenu : MonoBehaviour
 {
@@ -9,10 +8,8 @@ public class PlayerDeadMenu : MonoBehaviour
         GameManager.OnGameStatesChanged += OnPlayerDeadMenuActivate;
     }
     public void Restart()
-    {
-        //GameManager.OnGameStatesChanged -= OnPlayerDeadMenuActivate;
-        GameManager.Instance.RestartGame();
-        
+    {        
+        GameManager.Instance.RestartGame();        
     }
     private void OnPlayerDeadMenuActivate(GameStates state)
     {
@@ -22,5 +19,4 @@ public class PlayerDeadMenu : MonoBehaviour
     {
         GameManager.OnGameStatesChanged -= OnPlayerDeadMenuActivate;
     }
-
 }

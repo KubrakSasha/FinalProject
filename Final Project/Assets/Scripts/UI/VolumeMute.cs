@@ -11,5 +11,5 @@ public class VolumeMute : MonoBehaviour
     }
 
     // Update is called once per frame
-    public void Toggle() { SoundManager.Instance.ToggleEffects(); }
+    //public void Toggle() { SoundManager.Instance.ToggleEffects(); }
 }

@@ -7,9 +7,5 @@ public class EnemyBullet : MonoBehaviour
     void Update()
     {
         Destroy(gameObject, 2f);
-    }
-    public int GetDamage()
-    {
-        return _damage;
-    }
+    }    
 }
