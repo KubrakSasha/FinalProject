@@ -129,8 +129,6 @@ public class PlayerStats : MonoBehaviour
     }
     private void HealthSystem_OnDead()
     {
-        
-
         GameManager.Instance.UpdateGameStates(GameStates.Dead);
     }
     private void OnCollisionEnter2D(Collision2D collision)
