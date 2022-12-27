@@ -1,44 +1,29 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    public Canvas canvas;
+    [SerializeField] private GameObject _pauseMenu;
     private void Awake()
     {
-        GameManager.OnGameStatesChanged += OnPauseMenuActive;      
+        GameManager.OnGameStatesChanged += OnPauseMenuActive;
     }
-
     private void OnPauseMenuActive(GameStates state)
     {
-        canvas.gameObject.SetActive(state == GameStates.Pause);
+        _pauseMenu.SetActive(state == GameStates.Pause);
     }
-
-    void Update()
+    private void OnDestroy()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Z))
-        {
-            if (GameManager.IsGamePaused)
-            {
-                ResumeGame();
-
-            }
-            else
-            {
-                GameManager.Instance.PauseGame();
-            }
-        }
-    }
-    public void ResumeGame() 
+        GameManager.OnGameStatesChanged -= OnPauseMenuActive;
+    }    
+    public void ResumeGame()
     {
         GameManager.Instance.ResumeGame();
     }
-    public void RestartGame() 
-    {
-        SceneManager.LoadScene(0);
-        GameManager.Instance.UpdateGameStates(GameStates.MainMenu);
+    public void RestartGame()
+    {        
+        GameManager.Instance.RestartGame();
     }
-    public void QuitGame() 
+    public void QuitGame()
     {
         Application.Quit();
     }

@@ -1,28 +1,15 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public Canvas canvas;
-    private void Awake()
-    {
-        GameManager.OnGameStatesChanged += OnMainMenuActivate;
-    }
-    private void OnMainMenuActivate(GameStates state)
-    {
-        canvas.gameObject.SetActive(state == GameStates.MainMenu);
-    }
+    [SerializeField] GameObject _mainMenu;    
     public void StartGame()
     {
-        GameManager.Instance.UpdateGameStates(GameStates.InGame);
-        Time.timeScale = 1.0f;
+        SceneManager.LoadScene(1);
     }
     public void QuitGame()
     {
         Application.Quit();
     }
-
 }
