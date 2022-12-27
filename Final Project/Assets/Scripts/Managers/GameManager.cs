@@ -75,7 +75,8 @@ public class GameManager : Singleton<GameManager>
                 //SoundManager.Instance.ToggleEffects();
                 break;
             case GameStates.Win:
-                ChangeTimeScaleToZero();
+                SoundManager.Instance.PlaySound(SoundManager.Sound.WellDone);
+                //ChangeTimeScaleToZero();
                 break;
 
             default:
