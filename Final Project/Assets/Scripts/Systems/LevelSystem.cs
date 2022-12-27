@@ -1,5 +1,4 @@
 using System;
-
 public class LevelSystem
 {
     public event Action OnExpirienceChanged;

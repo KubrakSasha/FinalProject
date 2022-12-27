@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class SoundManager : Singleton<SoundManager>
 {
@@ -11,31 +8,47 @@ public class SoundManager : Singleton<SoundManager>
     [SerializeField] private AudioSource _enemySorce;
 
     public float VolumeSettings;
-
-    
-    //[SerializeField] private Slider _soundSlider;
+    public float WavesCount;
+    private float _tempCount;
 
     private void Awake()
     {
         this.AddComponent<AudioSource>();
         _effectSorce = GetComponent<AudioSource>();
         VolumeSettings = PlayerPrefs.GetFloat("Volume");
+
+        WavesCount = PlayerPrefs.GetFloat("WavesCount");
     }
    
     public enum Sound 
     {
         PistolShot,
+        RifleShot,
+        ShotgunShot,
+
         PistolReloading,
+        RifleReloading,
+        ShotgunReloading,
+
         EnemyHit,
         EnemiDie,
         EnemyMoving,
-        Explosion
+        Explosion,
+
+        WellDone
 
     }
     private void Update()// Наверное так не правильно
     {
         VolumeSettings = AudioListener.volume;
         PlayerPrefs.SetFloat("Volume", VolumeSettings);
+
+        _tempCount = WavesCount;
+        PlayerPrefs.SetFloat("WavesCount", _tempCount);        
+    }
+    public void GetWavesCount(float amount)
+    {
+        WavesCount = amount;
     }
 
     public void PlaySound(Sound sound) 
@@ -62,13 +75,12 @@ public class SoundManager : Singleton<SoundManager>
     {
         AudioListener.volume = value;
     }
-    public void ToggleEffects() 
+    //public void ToggleEffects() 
+    //{
+    //    _effectSorce.mute = !_effectSorce.mute;
+    //}
+    public AudioSource Get() 
     {
-        _effectSorce.mute = !_effectSorce.mute;
-    }
-    //public void 
-    
-
-
-
+        return _effectSorce;    
+    }    
 }

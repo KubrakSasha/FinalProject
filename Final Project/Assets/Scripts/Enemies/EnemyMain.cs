@@ -1,52 +1,62 @@
 using System;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class EnemyMain : MonoBehaviour
 {
-    AudioSource _audioSource;
-
     public static event Action OnEnemyDied;
+    public bool IsExplosive;
+    protected bool _isAlive = true;
 
-    public GameObject DeathPrefab;
     protected Transform _player;
+    protected Animator _animator;   
 
-    public HealthSystem _healthSystem;
+    protected HealthSystem _healthSystem;
+    protected AudioSource _audioSource;
     [SerializeField] protected int _maxHealth = 100;
     [SerializeField] protected float _movementSpeed = 3;
     [SerializeField] protected int _damage;
     protected float _movementSpeedMultiply = 1;
     protected float _damageMultiplier = 1;
+
+    public HealthSystem HealthSystem => _healthSystem;
     public float Damage => _damage * _damageMultiplier;
-    public float MovementSpeed => _movementSpeed * _movementSpeedMultiply;
-    public bool IsExplosive;
+    public float MovementSpeed => _movementSpeed * _movementSpeedMultiply;    
 
     private void Awake()
     {
+        _audioSource = GetComponent<AudioSource>();
+        _animator = GetComponent<Animator>();
         _player = PlayerMain.Instance.GetComponent<Transform>();
-
     }
     void Start()
-    {
-        _audioSource = GetComponent<AudioSource>();        
+    {                
         _healthSystem = new HealthSystem(_maxHealth);        
         _healthSystem.OnDead += HealthSystem_OnDead;
     }
     protected void Update()
     {
+        if(_isAlive)
         FollowForPlayer();
     }
 
     private void HealthSystem_OnDead()
-    {
+    {            
+        _animator.SetBool("Death", true);
+        _isAlive = false;
+        _audioSource.mute = true;
+        if (IsExplosive)
+        {
+            Instantiate(AssetManager.Instance.BigExplosionPrefab, transform.position, Quaternion.identity);
+            Destroy(gameObject);
+        }
+        Instantiate(AssetManager.Instance.DeathPrefab, transform.position, Quaternion.identity);
+        //_movementSpeed = 0;        
         GetComponent<LootBag>().InstantiateLoot(transform.position);
-        Instantiate(DeathPrefab, transform.position, Quaternion.identity);
-        Destroy(gameObject);
+        GetComponent<CircleCollider2D>().enabled = false;
+        Destroy(gameObject, 20f);
+        Instantiate(AssetManager.Instance.BloodPrefab, transform.position, Quaternion.identity);
         OnEnemyDied?.Invoke();
-        _healthSystem.OnDead -= HealthSystem_OnDead;
-        //SoundManager.Instance.PlaySound(SoundManager.Sound.EnemyHit);
+        _healthSystem.OnDead -= HealthSystem_OnDead;        
     }
     void FollowForPlayer()
     {

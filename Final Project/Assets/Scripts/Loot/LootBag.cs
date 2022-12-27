@@ -4,7 +4,6 @@ using UnityEngine;
 public class LootBag : MonoBehaviour
 {
     [SerializeField] private List <Loot> _loots = new List<Loot>();
-
     Loot GetDroppedItem() 
     {
         int randomNumber = Random.Range(1, 101);
@@ -31,7 +30,4 @@ public class LootBag : MonoBehaviour
             Instantiate(item.Prefab, spawnPosition, Quaternion.identity);
         }
     }
-
-
-
 }

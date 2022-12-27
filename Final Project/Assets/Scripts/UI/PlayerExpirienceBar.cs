@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
+
 
 public class PlayerExpirienceBar : MonoBehaviour
 {
@@ -11,9 +8,9 @@ public class PlayerExpirienceBar : MonoBehaviour
     [SerializeField] private Transform _bar;
 
     private LevelSystem _levelSystem;
-    
-    public void Setup (LevelSystem levelSystem)
-    {        
+
+    public void Setup(LevelSystem levelSystem)
+    {
         _levelSystem = levelSystem;
         _levelSystem.OnExpirienceChanged += LevelSystem_OnExpirienceChanged;
         _levelSystem.OnLevelChanged += LevelSystem_OnLevelChanged;
@@ -21,7 +18,10 @@ public class PlayerExpirienceBar : MonoBehaviour
     }
     private void SetLevelNumber(int levelNumber)
     {
-        _levelNumber.text = "Level" + (_levelSystem.Level + 1);
+        if (levelNumber == 11)
+            _levelNumber.text = "Max Level";
+        else
+            _levelNumber.text = "Level" + (_levelSystem.Level + 1);
     }
     private void LevelSystem_OnLevelChanged()
     {
@@ -30,8 +30,8 @@ public class PlayerExpirienceBar : MonoBehaviour
 
     private void LevelSystem_OnExpirienceChanged()
     {
-
-        _bar.localScale = new Vector2(_levelSystem.GetExpiriencePercent(), 1.0f);
+        _bar.GetComponent<Image>().fillAmount = _levelSystem.GetExpiriencePercent();
+        //_bar.localScale = new Vector2(_levelSystem.GetExpiriencePercent(), 1.0f);
     }
     private void OnDestroy()
     {

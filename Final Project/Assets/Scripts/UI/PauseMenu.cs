@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -8,7 +7,6 @@ public class PauseMenu : MonoBehaviour
     {
         GameManager.OnGameStatesChanged += OnPauseMenuActive;
     }
-
     private void OnPauseMenuActive(GameStates state)
     {
         _pauseMenu.SetActive(state == GameStates.Pause);
@@ -16,20 +14,17 @@ public class PauseMenu : MonoBehaviour
     private void OnDestroy()
     {
         GameManager.OnGameStatesChanged -= OnPauseMenuActive;
-    }
-    
+    }    
     public void ResumeGame()
     {
         GameManager.Instance.ResumeGame();
     }
     public void RestartGame()
-    {
-        //GameManager.OnGameStatesChanged -= OnPauseMenuActive;
+    {        
         GameManager.Instance.RestartGame();
     }
     public void QuitGame()
     {
         Application.Quit();
-
     }
 }

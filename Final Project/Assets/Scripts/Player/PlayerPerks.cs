@@ -1,9 +1,5 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using static PlayerSkills;
 using Random = UnityEngine.Random;
 
 public class PlayerPerks : MonoBehaviour
@@ -13,13 +9,11 @@ public class PlayerPerks : MonoBehaviour
     private Weapon _weapon;    
     private float _perksTime = 5;
 
-
     private void Awake()
     {
         _stats = GetComponent<PlayerStats>();
         _weapon = GetComponent<Weapon>();
         _shootingHandler = GetComponent<PlayerShootingHandler>();
-
     }
 
     public enum Perks
@@ -41,10 +35,10 @@ public class PlayerPerks : MonoBehaviour
         collision.TryGetComponent<Heal>(out Heal heal);
         if (heal != null)
         {
-            _stats.healthSystem.ApplyHeal(30);
+            _stats.HealthSystem.ApplyHeal(30);
             Destroy(collision.gameObject);
+            Instantiate(AssetManager.Instance.PerkHealthPrefab, transform.position, Quaternion.identity);
         }
-
 
         collision.TryGetComponent<Explosion>(out Explosion explosion);
         if (explosion != null)
@@ -55,15 +49,14 @@ public class PlayerPerks : MonoBehaviour
                 enemy.TryGetComponent<EnemyMain>(out EnemyMain enem);
                 if (enem != null)
                 {
-                    enem._healthSystem.ApplyDamgage(100);
+                    enem.HealthSystem.ApplyDamgage(100);
                 }
             }
             GameManager.Instance.CameraShake.Shake(0.5f, 0.5f);
             SoundManager.Instance.PlaySound(SoundManager.Sound.Explosion);
-            Instantiate(AssetManager.Instance.ExplosionPrefab, transform.position, Quaternion.identity);
+            Instantiate(AssetManager.Instance.BigExplosionPrefab, transform.position, Quaternion.identity);
             Destroy(collision.gameObject);
         }
-
 
         collision.TryGetComponent<Pistol>(out Pistol pistol);
         if (pistol != null)
@@ -72,14 +65,12 @@ public class PlayerPerks : MonoBehaviour
             Destroy(collision.gameObject);
         }
 
-
         collision.TryGetComponent<Rifle>(out Rifle rifle);
         if (rifle != null)
         {
             _shootingHandler.WeaponChange(Weapon.WeaponTypes.Rifle);
             Destroy(collision.gameObject);
         }
-
 
         collision.TryGetComponent<Shotgun>(out Shotgun gun);
         if (gun != null)
@@ -91,10 +82,10 @@ public class PlayerPerks : MonoBehaviour
         collision.TryGetComponent<Freeze>(out Freeze freeze);
         if (freeze != null)
         {
+            Instantiate(AssetManager.Instance.PerkFreezePrefab, transform.position, Quaternion.identity);
             StartCoroutine(FreezeOrSlowDownEnemies(0));
             Destroy(collision.gameObject);
         }
-
 
         collision.TryGetComponent<SlowDown>(out SlowDown slowdown);
         if (slowdown != null)
@@ -103,12 +94,12 @@ public class PlayerPerks : MonoBehaviour
             Destroy(collision.gameObject);
         }
 
-
         collision.TryGetComponent<GodMode>(out GodMode godMode);
         if (godMode != null)
         {
+            Instantiate(AssetManager.Instance.PerkGodModePrefab, transform.position, Quaternion.identity);
             StartCoroutine(GodMode());
-            Destroy(collision.gameObject);
+            Destroy(collision.gameObject);            
         }
 
         collision.TryGetComponent<RandomWeapon>(out RandomWeapon randomWeapon);
@@ -126,7 +117,6 @@ public class PlayerPerks : MonoBehaviour
         }
     }
 
-
     private Collider2D[] EnemiesAroundPlayer(float radius)
     {
         return Physics2D.OverlapCircleAll(transform.position, radius);
@@ -136,11 +126,7 @@ public class PlayerPerks : MonoBehaviour
         //List<Weapon.WeaponTypes> weapons = new List<Weapon.WeaponTypes>();
         //weapons = Enum.GetValues(typeof(Weapon.WeaponTypes)).Cast<Weapon.WeaponTypes>().ToList();
         _shootingHandler.WeaponChange( _weapon.GetAllWeaponTypes()[Random.Range(0, _weapon.GetAllWeaponTypes().Count)]);
-
-
     }
-
-
     private IEnumerator FreezeOrSlowDownEnemies(float coef)
     {
         foreach (var enemy in EnemiesAroundPlayer(30))
@@ -161,7 +147,6 @@ public class PlayerPerks : MonoBehaviour
             }
         }
     }
-
     private IEnumerator GodMode() 
     {
         foreach (var enemy in EnemiesAroundPlayer(30))
@@ -171,8 +156,7 @@ public class PlayerPerks : MonoBehaviour
             {
                 enemyMain.SetDamageCoefficient(0);
             }
-        }
-        Debug.Log("GODMOD ON");
+        }        
         yield return new WaitForSeconds(_perksTime);
         foreach (var enemy in EnemiesAroundPlayer(30))
         {
@@ -181,7 +165,6 @@ public class PlayerPerks : MonoBehaviour
             {
                 enemyMain.SetDamageCoefficient(1);
             }
-        }
-        Debug.Log("GODMOD OFF");
+        }        
     }
 }

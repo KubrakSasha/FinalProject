@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using static PlayerSkills;
@@ -9,12 +6,10 @@ public class UISkills : MonoBehaviour
 {
     private PlayerSkills _playerSkills;
     [SerializeField] private GameObject _skills;
-    //private LevelSystem _levelSystem;
+    [SerializeField] private Image _lockImage;
 
-    //private List<SkillButton> _buttons;
     private void Awake()//Почему то нужно что бы на старте панель Skills была активна
     {
-        //_skills.SetActive(false);
         GameManager.OnGameStatesChanged += OnSkillsMenuActive;
         transform.Find("LongDistanceRunner").GetComponent<Button>().onClick.AddListener(delegate { SetSkillEnable(SkillType.LongDistanceRunner); });
         transform.Find("FastShoot").GetComponent<Button>().onClick.AddListener(delegate { SetSkillEnable(SkillType.FastShoot); });
@@ -27,49 +22,21 @@ public class UISkills : MonoBehaviour
         transform.Find("ExplosionBullet").GetComponent<Button>().onClick.AddListener(delegate { SetSkillEnable(SkillType.ExplosionBullet); });
         transform.Find("PoisonBullet").GetComponent<Button>().onClick.AddListener(delegate { SetSkillEnable(SkillType.PoisonBullet); });
     }
-
     private void OnSkillsMenuActive(GameStates state)
     {
-        _skills.SetActive(state == GameStates.SkillSelection);       
+        _skills.SetActive(state == GameStates.SkillSelection);
     }
-  
-    public void SetSkillEnable(PlayerSkills.SkillType type) 
+    public void SetSkillEnable(PlayerSkills.SkillType type)
     {
         _playerSkills.SetActiveSkill(type);
     }
-
     public void SetPlayerSkills(PlayerSkills skills)
     {
-        _playerSkills = skills;        
+        _playerSkills = skills;
     }
-    
+
     private void OnDestroy()
     {
         GameManager.OnGameStatesChanged -= OnSkillsMenuActive;
     }
-    //private class SkillButton
-    //{
-    //    private Transform _transform;
-    //    private PlayerSkills _skills;
-    //    private PlayerSkills.SkillType _type;
-
-    //    public SkillButton(Transform transform, PlayerSkills skills, SkillType type)
-    //    {
-    //        _transform = transform;
-    //        _skills = skills;
-    //        _type = type;
-    //    }
-    //}
 }
-//_buttons = new List<SkillButton>();
-//_buttons.Add(new SkillButton(transform.Find("LongDistanceRunner"), _playerSkills, SkillType.LongDistanceRunner));
-//_buttons.Add(new SkillButton(transform.Find("FastShoot"), _playerSkills, SkillType.FastShoot));
-//_buttons.Add(new SkillButton(transform.Find("FastLoader"), _playerSkills, SkillType.FastLoader));
-//_buttons.Add(new SkillButton(transform.Find("AmmoManiac"), _playerSkills, SkillType.AmmoManiac));
-//_buttons.Add(new SkillButton(transform.Find("X2Damage"), _playerSkills, SkillType.X2Damage));
-//_buttons.Add(new SkillButton(transform.Find("X2Expirience"), _playerSkills, SkillType.X2Expirience));
-//_buttons.Add(new SkillButton(transform.Find("MaxHealth"), _playerSkills, SkillType.MaxHealth));
-//_buttons.Add(new SkillButton(transform.Find("Lucky"), _playerSkills, SkillType.Lucky));
-//_buttons.Add(new SkillButton(transform.Find("ExplosionBullet"), _playerSkills, SkillType.ExplosionBullet));
-//_buttons.Add(new SkillButton(transform.Find("PoisonBullet"), _playerSkills, SkillType.PoisonBullet));
-//_playerSkills.OnSkillActivate += _playerSkills_OnSkillUnlocked;
