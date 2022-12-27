@@ -8,7 +8,8 @@ public class EnemyMain : MonoBehaviour
     protected bool _isAlive = true;
 
     protected Transform _player;
-    protected Animator _animator;   
+    protected Animator _animator;
+    protected GameObject _minimapIcon;
 
     protected HealthSystem _healthSystem;
     protected AudioSource _audioSource;
@@ -24,6 +25,7 @@ public class EnemyMain : MonoBehaviour
 
     private void Awake()
     {
+        _minimapIcon = GameObject.Find ("MinimapIcon");// Переделать 
         _audioSource = GetComponent<AudioSource>();
         _animator = GetComponent<Animator>();
         _player = PlayerMain.Instance.GetComponent<Transform>();
@@ -35,12 +37,14 @@ public class EnemyMain : MonoBehaviour
     }
     protected void Update()
     {
-        if(_isAlive)
+        
+        if (_isAlive)
         FollowForPlayer();
     }
 
     private void HealthSystem_OnDead()
-    {            
+    {
+        Destroy(_minimapIcon);
         _animator.SetBool("Death", true);
         _isAlive = false;
         _audioSource.mute = true;
@@ -49,6 +53,7 @@ public class EnemyMain : MonoBehaviour
             Instantiate(AssetManager.Instance.BigExplosionPrefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
+        
         Instantiate(AssetManager.Instance.DeathPrefab, transform.position, Quaternion.identity);
         //_movementSpeed = 0;        
         GetComponent<LootBag>().InstantiateLoot(transform.position);

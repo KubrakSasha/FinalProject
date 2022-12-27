@@ -16,7 +16,7 @@ public class PlayerStats : MonoBehaviour
     private float _maxHealth = 100;
     private float _damage = 20;
     private float _speedMovement = 4;
-    private float _expiriencePerKill = 4;
+    private float _expiriencePerKill = 5;
 
     private float _damageMultiply = 1;
     private float _speedMovementMultiply = 1;
