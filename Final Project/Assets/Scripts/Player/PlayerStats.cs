@@ -16,7 +16,7 @@ public class PlayerStats : MonoBehaviour
     private float _maxHealth = 100;
     private float _damage = 20;
     private float _speedMovement = 4;
-    private float _expiriencePerKill = 5;
+    private float _expiriencePerKill = 6;
 
     private float _damageMultiply = 1;
     private float _speedMovementMultiply = 1;
@@ -123,15 +123,13 @@ public class PlayerStats : MonoBehaviour
     }
 
     private void EnemyMain_OnEnemyDied()
-    {        
-        _levelSystem.AddExpirience(ExpiriencePerKill);        
+    {
+        _levelSystem.AddExpirience(ExpiriencePerKill);
+        Debug.Log(_levelSystem.Expirience);
     }
     private void HealthSystem_OnDead()
     {
-        _healthSystem.OnDead -= HealthSystem_OnDead;
-        _levelSystem.OnLevelChanged -= LevelSystemOnLevelChanged;        
-        EnemyMain.OnEnemyDied -= EnemyMain_OnEnemyDied;
-        _playerSkills.OnSkillActivate -= PlayerSkills_OnSkillUnlocked;
+        
 
         GameManager.Instance.UpdateGameStates(GameStates.Dead);
     }
@@ -154,5 +152,12 @@ public class PlayerStats : MonoBehaviour
         {
             _healthSystem.ApplyDamgage(enemyBullet.Damage);
         }
-    }    
+    }
+    private void OnDestroy()
+    {
+        _healthSystem.OnDead -= HealthSystem_OnDead;
+        _levelSystem.OnLevelChanged -= LevelSystemOnLevelChanged;
+        EnemyMain.OnEnemyDied -= EnemyMain_OnEnemyDied;
+        _playerSkills.OnSkillActivate -= PlayerSkills_OnSkillUnlocked;
+    }
 }

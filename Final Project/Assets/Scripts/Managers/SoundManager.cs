@@ -35,7 +35,8 @@ public class SoundManager : Singleton<SoundManager>
         EnemyMoving,
         Explosion,
 
-        WellDone
+        WellDone,
+        FinishHim
 
     }
     private void Update()// Наверное так не правильно

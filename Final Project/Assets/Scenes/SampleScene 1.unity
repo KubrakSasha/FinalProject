@@ -32392,7 +32392,6 @@ GameObject:
   - component: {fileID: 1571209929}
   - component: {fileID: 1571209930}
   - component: {fileID: 1571209931}
-  - component: {fileID: 1571209933}
   - component: {fileID: 1571209932}
   m_Layer: 3
   m_Name: Player
@@ -32573,7 +32572,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cf012dcd87637446805f50a1afca963, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WeaponType: 2
+  WeaponType: 0
   WeaponTypess: 
 --- !u!114 &1571209931
 MonoBehaviour:
@@ -32607,20 +32606,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1571209933
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1571209920}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cf012dcd87637446805f50a1afca963, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WeaponType: 0
-  WeaponTypess: 
 --- !u!1 &1572521522
 GameObject:
   m_ObjectHideFlags: 0
@@ -116513,6 +116498,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 6c5fd65d135551e4c9d758bcb9bb3ce7, type: 3}
   - Sound: 10
     clip: {fileID: 8300000, guid: 46a0a4e4945c9c646b98966b74a4bff9, type: 3}
+  - Sound: 11
+    clip: {fileID: 8300000, guid: 01ef4af804f98c2439d8ae99c48e4cb5, type: 3}
 --- !u!1 &1953327241
 GameObject:
   m_ObjectHideFlags: 0

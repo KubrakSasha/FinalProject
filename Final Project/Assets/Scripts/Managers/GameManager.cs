@@ -15,7 +15,7 @@ public class GameManager : Singleton<GameManager>
     public CameraShake CameraShake;
     public static Action<GameStates> OnGameStatesChanged;
     public static bool IsGamePaused = false;
-    public static bool IsDead = false;
+    public static bool IsDeadOrWin = false;
     public static bool IsScillSelection = false;
     private GameStates _gameStates;
     [SerializeField] private GameObject _gamePanel;    // придумать куда деть
@@ -32,7 +32,7 @@ public class GameManager : Singleton<GameManager>
 
     private void Update()
     {
-        if (IsDead == false && IsScillSelection == false)
+        if (IsDeadOrWin == false && IsScillSelection == false)
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
@@ -54,7 +54,7 @@ public class GameManager : Singleton<GameManager>
         switch (state)
         {
             case GameStates.InGame:
-                IsDead = false;
+                IsDeadOrWin = false;
                 IsScillSelection = false;
                 SetActiveGamePanel();
                 ChangeTimeScaleToOne();
@@ -67,17 +67,17 @@ public class GameManager : Singleton<GameManager>
                 //SoundManager.Instance.ToggleEffects();
                 break;
             case GameStates.Dead:
-                IsDead = true;
+                IsDeadOrWin = true;
                 ChangeTimeScaleToZero();
                 SetEnableGamingPanel();
                 break;
             case GameStates.Pause:
                 //SoundManager.Instance.ToggleEffects();
                 break;
-            case GameStates.Win:                
+            case GameStates.Win:
+                IsDeadOrWin = true;
                 ChangeTimeScaleToZero();
                 break;
-
             default:
                 break;
         }

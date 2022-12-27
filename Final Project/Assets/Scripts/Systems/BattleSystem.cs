@@ -58,29 +58,33 @@ public class BattleSystem : MonoBehaviour
     {
         if (_waveState == WaveState.StopSpawning)
         {
+            //if (_spawnEnemies - _killedEnemies == 1)
+            //{
+            //    StartCoroutine(FinishHim());
+            //}
             if (_spawnEnemies == _killedEnemies)
             {
                 _waveState = WaveState.EndBattle;
-
                 StartCoroutine(PlayerWinGame());
-
             }
         }
         if (_waveState != WaveState.StopSpawning)
         {
-
             LevelSpawn();
         }
     }
     private IEnumerator PlayerWinGame()
     {
-
-
         SoundManager.Instance.PlaySound(SoundManager.Sound.WellDone);
-
         yield return new WaitForSeconds(2f);
         GameManager.Instance.UpdateGameStates(GameStates.Win);
     }
+    //private IEnumerator FinishHim()
+    //{
+    //    SoundManager.Instance.PlaySound(SoundManager.Sound.FinishHim);
+    //    yield return new WaitForSeconds(2f);
+        
+    //}
 
     private void EnemyMain_OnEnemyDied()
     {
