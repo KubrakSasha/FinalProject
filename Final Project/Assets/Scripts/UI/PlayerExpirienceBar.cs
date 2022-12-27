@@ -1,10 +1,11 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 
 public class PlayerExpirienceBar : MonoBehaviour
 {
-    [SerializeField] private Text _levelNumber;
+    [SerializeField] private TextMeshProUGUI _levelNumber;
     [SerializeField] private Transform _bar;
 
     private LevelSystem _levelSystem;
@@ -21,7 +22,7 @@ public class PlayerExpirienceBar : MonoBehaviour
         if (levelNumber == 11)
             _levelNumber.text = "Max Level";
         else
-            _levelNumber.text = "Level" + (_levelSystem.Level + 1);
+            _levelNumber.text = "Level " + (_levelSystem.Level + 1);
     }
     private void LevelSystem_OnLevelChanged()
     {

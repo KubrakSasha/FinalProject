@@ -13,18 +13,12 @@ public class PlayerWinMenu : MonoBehaviour
         GameManager.Instance.RestartGame();
     }
     private void OnPlayerWinMenuActivate(GameStates state)
-    {
-        
-
-        StartCoroutine(PlayerWinGame());
+    {      
         _playerWinMenu.SetActive(state == GameStates.Win);
     }
     private void OnDestroy()
     {
         GameManager.OnGameStatesChanged -= OnPlayerWinMenuActivate;
     }
-    private IEnumerator PlayerWinGame() 
-    {
-        yield return new WaitForSeconds(5.0f);
-    }
+    
 }
